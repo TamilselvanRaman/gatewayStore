@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiShoppingBag, FiClock, FiTruck, FiCheckCircle, FiXCircle, FiAlertCircle, FiChevronRight } from 'react-icons/fi';
 import Sidebar from '../components/Sidebar';
@@ -39,12 +39,12 @@ const AdminOrders = () => {
     <div className="container-fluid py-4 animate-fade-in">
       <div className="row">
 
-        {/* Sidebar */}
+        {}
         <div className="col-12 col-md-3 col-lg-2 mb-4 mb-md-0">
           <Sidebar />
         </div>
 
-        {/* Content */}
+        {}
         <div className="col-12 col-md-9 col-lg-10">
 
           <div className="mb-4">

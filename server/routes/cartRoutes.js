@@ -1,4 +1,4 @@
-const express = require('express');
+﻿const express = require('express');
 const router = express.Router();
 const {
   getCart,
@@ -9,7 +9,7 @@ const {
 } = require('../controllers/cartController');
 const { protect } = require('../middleware/auth');
 
-router.use(protect); // All cart routes require login
+router.use(protect);
 
 router.get('/', getCart);
 router.post('/', addToCart);

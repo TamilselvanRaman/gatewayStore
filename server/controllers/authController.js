@@ -1,29 +1,21 @@
-const User = require('../models/User');
+﻿const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
-// Generate JWT token helper
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET || 'gateway_jwt_secret_key_123456', {
     expiresIn: '30d'
   });
 };
 
-// @desc    Register a new user
-// @route   POST /api/auth/register
-// @access  Public
 const registerUser = async (req, res) => {
   try {
     const { name, email, phone, password, role } = req.body;
 
-    // Check if user exists
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({ success: false, message: 'User already exists with this email' });
     }
 
-    // Assign role (restrict admin creation unless manually set or code condition)
-    // For local ease, let's allow creating admins if role === 'admin' and a special secret is provided, 
-    // or just let them specify it for test/internship purposes. Let's support creating admins from registration if requested.
     const userRole = role === 'admin' ? 'admin' : 'customer';
 
     const user = await User.create({
@@ -54,14 +46,10 @@ const registerUser = async (req, res) => {
   }
 };
 
-// @desc    Auth user & get token
-// @route   POST /api/auth/login
-// @access  Public
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Check for user
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -93,9 +81,6 @@ const loginUser = async (req, res) => {
   }
 };
 
-// @desc    Get user profile
-// @route   GET /api/auth/profile
-// @access  Private
 const getUserProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select('-password');
@@ -112,9 +97,6 @@ const getUserProfile = async (req, res) => {
   }
 };
 
-// @desc    Update user profile details
-// @route   PUT /api/auth/profile
-// @access  Private
 const updateUserProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
@@ -149,9 +131,6 @@ const updateUserProfile = async (req, res) => {
   }
 };
 
-// @desc    Add or update user address
-// @route   POST /api/auth/address
-// @access  Private
 const manageUserAddress = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
@@ -162,7 +141,7 @@ const manageUserAddress = async (req, res) => {
     const { street, city, state, zipCode, country, addressId } = req.body;
 
     if (addressId) {
-      // Edit existing address
+
       const addr = user.address.id(addressId);
       if (addr) {
         addr.street = street || addr.street;
@@ -172,7 +151,7 @@ const manageUserAddress = async (req, res) => {
         addr.country = country || addr.country;
       }
     } else {
-      // Add new address
+
       user.address.push({ street, city, state, zipCode, country });
     }
 
@@ -183,9 +162,6 @@ const manageUserAddress = async (req, res) => {
   }
 };
 
-// @desc    Delete user address
-// @route   DELETE /api/auth/address/:id
-// @access  Private
 const deleteUserAddress = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
@@ -201,9 +177,6 @@ const deleteUserAddress = async (req, res) => {
   }
 };
 
-// @desc    Get all users list (Admin)
-// @route   GET /api/auth/users
-// @access  Private/Admin
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find({}).select('-password');
@@ -213,9 +186,6 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-// @desc    Block or Unblock user (Admin)
-// @route   PUT /api/auth/users/:id/block
-// @access  Private/Admin
 const toggleUserBlockStatus = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);

@@ -1,8 +1,5 @@
-const User = require('../models/User');
+﻿const User = require('../models/User');
 
-// @desc    Get user wishlist
-// @route   GET /api/wishlist
-// @access  Private
 const getWishlist = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).populate({
@@ -20,9 +17,6 @@ const getWishlist = async (req, res) => {
   }
 };
 
-// @desc    Toggle product in wishlist (Add/Remove)
-// @route   POST /api/wishlist
-// @access  Private
 const toggleWishlist = async (req, res) => {
   try {
     const { productId } = req.body;
@@ -39,16 +33,15 @@ const toggleWishlist = async (req, res) => {
     const isAlreadyWishlisted = user.wishlist.includes(productId);
 
     if (isAlreadyWishlisted) {
-      // Remove product
+
       user.wishlist = user.wishlist.filter(id => id.toString() !== productId);
     } else {
-      // Add product
+
       user.wishlist.push(productId);
     }
 
     await user.save();
 
-    // Fetch and return updated populated list
     const updatedUser = await User.findById(req.user._id).populate({
       path: 'wishlist',
       select: 'title price discountPrice images stock brand rating'

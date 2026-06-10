@@ -1,9 +1,6 @@
-const Cart = require('../models/Cart');
+﻿const Cart = require('../models/Cart');
 const Product = require('../models/Product');
 
-// @desc    Get user cart
-// @route   GET /api/cart
-// @access  Private
 const getCart = async (req, res) => {
   try {
     let cart = await Cart.findOne({ user: req.user._id }).populate({
@@ -11,7 +8,6 @@ const getCart = async (req, res) => {
       select: 'title price discountPrice images stock brand'
     });
 
-    // Create empty cart if it doesn't exist yet
     if (!cart) {
       cart = await Cart.create({
         user: req.user._id,
@@ -25,9 +21,6 @@ const getCart = async (req, res) => {
   }
 };
 
-// @desc    Add product to cart (or increase quantity)
-// @route   POST /api/cart
-// @access  Private
 const addToCart = async (req, res) => {
   try {
     const { productId, quantity = 1 } = req.body;
@@ -36,7 +29,6 @@ const addToCart = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Please provide product ID' });
     }
 
-    // Verify product exists and has stock
     const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).json({ success: false, message: 'Product not found' });
@@ -47,22 +39,21 @@ const addToCart = async (req, res) => {
       cart = await Cart.create({ user: req.user._id, products: [] });
     }
 
-    // Check if product is already in cart
     const itemIndex = cart.products.findIndex(
       item => item.product.toString() === productId
     );
 
     if (itemIndex > -1) {
-      // Product exists in cart, update quantity
+
       cart.products[itemIndex].quantity += Number(quantity);
     } else {
-      // Product does not exist, push to array
+
       cart.products.push({ product: productId, quantity: Number(quantity) });
     }
 
     await cart.save();
     
-    // Populate and return updated cart
+
     const updatedCart = await Cart.findById(cart._id).populate({
       path: 'products.product',
       select: 'title price discountPrice images stock brand'
@@ -74,9 +65,6 @@ const addToCart = async (req, res) => {
   }
 };
 
-// @desc    Update quantity of product in cart
-// @route   PUT /api/cart/:id
-// @access  Private
 const updateCartQuantity = async (req, res) => {
   try {
     const { quantity } = req.body;
@@ -113,9 +101,6 @@ const updateCartQuantity = async (req, res) => {
   }
 };
 
-// @desc    Remove product from cart
-// @route   DELETE /api/cart/:id
-// @access  Private
 const removeFromCart = async (req, res) => {
   try {
     const productId = req.params.id;
@@ -142,9 +127,6 @@ const removeFromCart = async (req, res) => {
   }
 };
 
-// @desc    Clear user cart
-// @route   DELETE /api/cart
-// @access  Private
 const clearCart = async (req, res) => {
   try {
     const cart = await Cart.findOne({ user: req.user._id });

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { FiUsers, FiUserCheck, FiUserX, FiCheck } from 'react-icons/fi';
 import Sidebar from '../components/Sidebar';
 import api from '../utils/api';
@@ -35,7 +35,7 @@ const AdminUsers = () => {
         if (res.data.success) {
           setSuccessMsg(`User "${userName}" has been ${blockState ? 'unblocked' : 'blocked'} successfully.`);
           
-          // Toggle local state
+
           setUsers(prev => prev.map(u => u._id === userId ? { ...u, isBlocked: !u.isBlocked } : u));
         }
       } catch (err) {
@@ -49,12 +49,12 @@ const AdminUsers = () => {
     <div className="container-fluid py-4 animate-fade-in">
       <div className="row">
         
-        {/* Sidebar */}
+        {}
         <div className="col-12 col-md-3 col-lg-2 mb-4 mb-md-0">
           <Sidebar />
         </div>
 
-        {/* Content */}
+        {}
         <div className="col-12 col-md-9 col-lg-10">
           
           <div className="mb-4">

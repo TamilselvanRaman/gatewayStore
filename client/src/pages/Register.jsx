@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+﻿import { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FiUser, FiMail, FiPhone, FiLock, FiAlertCircle, FiEye, FiEyeOff } from 'react-icons/fi';
 import { AuthContext } from '../context/AuthContext';
@@ -69,7 +69,7 @@ const Register = () => {
         )}
 
         <form onSubmit={handleSubmit} className="d-flex flex-column gap-3">
-          {/* Name */}
+          {}
           <div>
             <label className="form-label fw-bold text-dark fs-7">Full Name</label>
             <div className="input-group">
@@ -85,7 +85,7 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Email */}
+          {}
           <div>
             <label className="form-label fw-bold text-dark fs-7">Email Address</label>
             <div className="input-group">
@@ -101,7 +101,7 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Phone */}
+          {}
           <div>
             <label className="form-label fw-bold text-dark fs-7">Phone Number</label>
             <div className="input-group">
@@ -117,7 +117,7 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Password */}
+          {}
           <div>
             <label className="form-label fw-bold text-dark fs-7">Password (6+ chars)</label>
             <div className="input-group">
@@ -141,7 +141,7 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Submit */}
+          {}
           <button
             type="submit"
             className="btn btn-gateway-primary py-3 rounded-pill fw-bold font-headings mt-2"

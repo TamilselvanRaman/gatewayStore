@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+﻿import { useState, useContext, useEffect } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { FiMapPin, FiCreditCard, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
 import { AuthContext } from '../context/AuthContext';
@@ -12,21 +12,18 @@ const Checkout = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Redirect to cart if empty
   useEffect(() => {
     if (!cart.products || cart.products.length === 0) {
       navigate('/cart');
     }
   }, [cart, navigate]);
 
-  // Pricing calculations
   const stateSummary = location.state || {};
   const subtotal = stateSummary.subtotal || 0;
   const discount = stateSummary.discount || 0;
   const shipping = stateSummary.shipping || 0;
   const total = stateSummary.total || 0;
 
-  // Address state
   const [selectedAddressId, setSelectedAddressId] = useState(user?.address?.[0]?._id || 'new');
   const [newStreet, setNewStreet] = useState('');
   const [newCity, setNewCity] = useState('');
@@ -35,7 +32,6 @@ const Checkout = () => {
   const [saveToProfile, setSaveToProfile] = useState(true);
   const [addrError, setAddrError] = useState('');
 
-  // Payment state
   const [paymentMethod, setPaymentMethod] = useState('COD');
   const [cardName, setCardName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
@@ -43,7 +39,6 @@ const Checkout = () => {
   const [cardCvv, setCardCvv] = useState('');
   const [payError, setPayError] = useState('');
 
-  // General Status
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(null);
 
@@ -51,7 +46,6 @@ const Checkout = () => {
     setAddrError('');
     setPayError('');
 
-    // 1. Validate Shipping Address
     if (selectedAddressId === 'new') {
       if (!newStreet || !newCity || !newStateVal || !newZipCode) {
         setAddrError('Please fill in all shipping fields.');
@@ -61,7 +55,6 @@ const Checkout = () => {
       }
     }
 
-    // 2. Validate Payment Details
     if (paymentMethod === 'Card') {
       if (!cardName || !cardNumber || !cardExpiry || !cardCvv) {
         setPayError('Please fill in all credit card details.');
@@ -73,7 +66,7 @@ const Checkout = () => {
 
     setIsPlacingOrder(true);
     try {
-      // Prepare address object
+
       let finalAddress = {};
       if (selectedAddressId !== 'new') {
         const savedAddr = user.address.find((addr) => addr._id === selectedAddressId);
@@ -97,7 +90,6 @@ const Checkout = () => {
           country: 'India'
         };
 
-        // Optionally save to profile
         if (saveToProfile) {
           try {
             await saveAddress({
@@ -112,7 +104,6 @@ const Checkout = () => {
         }
       }
 
-      // Format order products snapshot
       const orderProducts = cart.products.map((item) => ({
         product: item.product._id,
         title: item.product.title,
@@ -120,7 +111,6 @@ const Checkout = () => {
         price: item.product.discountPrice > 0 ? item.product.discountPrice : item.product.price
       }));
 
-      // Submit
       const orderData = {
         products: orderProducts,
         address: finalAddress,
@@ -130,9 +120,9 @@ const Checkout = () => {
 
       const res = await api.post('/orders', orderData);
       
-      // Success
+
       setOrderSuccess(res.data.data);
-      clearCart(); // Reset cart state
+      clearCart();
     } catch (error) {
       console.error('Checkout failed', error);
       setPayError(error.response?.data?.message || 'Failed to submit order. Please check card or connection.');
@@ -177,11 +167,11 @@ const Checkout = () => {
 
       <div className="row g-4">
         
-        {/* Checkout Forms (Single Unified Card Box) */}
+        {}
         <div className="col-lg-8">
           <div className="gateway-card p-4 p-md-5 bg-white border-0 shadow-sm d-flex flex-column gap-4">
             
-            {/* Shipping details (No header title) */}
+            {}
             <div id="shipping-section">
               {addrError && (
                 <div className="alert alert-danger d-flex align-items-center gap-2 rounded-3 fs-7 py-2 mb-4">
@@ -189,7 +179,7 @@ const Checkout = () => {
                 </div>
               )}
 
-              {/* Saved Address Selection */}
+              {}
               {user?.address && user.address.length > 0 && (
                 <div className="mb-4">
                   <label className="form-label fw-bold text-dark fs-7 mb-2">Select Shipping Address</label>
@@ -221,7 +211,7 @@ const Checkout = () => {
                 </div>
               )}
 
-              {/* Add New Address Form */}
+              {}
               {(selectedAddressId === 'new' || !user?.address || user.address.length === 0) && (
                 <div className="row g-3 animate-fade-in">
                   <div className="col-12">
@@ -256,7 +246,7 @@ const Checkout = () => {
 
             <hr className="my-2 text-muted-subtle" />
 
-            {/* Payment details (No header title, just fields) */}
+            {}
             <div id="payment-section">
               {payError && (
                 <div className="alert alert-danger d-flex align-items-center gap-2 rounded-3 fs-7 py-2 mb-4">
@@ -264,9 +254,9 @@ const Checkout = () => {
                 </div>
               )}
 
-              {/* Payment Methods */}
+              {}
               <div className="d-flex flex-column gap-3">
-                {/* Cash On Delivery */}
+                {}
                 <div 
                   className={`p-3 border rounded-3 cursor-pointer transition ${paymentMethod === 'COD' ? 'border-primary bg-light' : 'border-light-subtle'}`} 
                   onClick={() => setPaymentMethod('COD')}
@@ -278,7 +268,7 @@ const Checkout = () => {
                   </div>
                 </div>
 
-                {/* Mock Card Payment */}
+                {}
                 <div 
                   className={`p-3 border rounded-3 cursor-pointer transition ${paymentMethod === 'Card' ? 'border-primary bg-light' : 'border-light-subtle'}`} 
                   onClick={() => setPaymentMethod('Card')}
@@ -314,7 +304,7 @@ const Checkout = () => {
 
             <hr className="my-2 text-muted-subtle" />
 
-            {/* Action submit button */}
+            {}
             <div>
               <button 
                 onClick={handlePlaceOrder} 
@@ -328,12 +318,12 @@ const Checkout = () => {
           </div>
         </div>
 
-        {/* Right Column: Checkout Details Checklist Summary */}
+        {}
         <div className="col-lg-4">
           <div className="gateway-card p-4 bg-white border-0 shadow-sm position-sticky" style={{ top: '100px' }}>
             <h5 className="fw-bold font-headings mb-4 border-bottom pb-2">Checkout Details</h5>
             
-            {/* Products Snapshot */}
+            {}
             <div className="d-flex flex-column gap-3 mb-4" style={{ maxHeight: '220px', overflowY: 'auto' }}>
               {cart.products.map((item) => {
                 const price = item.product.discountPrice > 0 ? item.product.discountPrice : item.product.price;
@@ -354,7 +344,7 @@ const Checkout = () => {
               })}
             </div>
 
-            {/* Sum stats */}
+            {}
             <div className="d-flex flex-column gap-2 mb-2 fs-7 text-muted border-top pt-3">
               <div className="d-flex justify-content-between">
                 <span>Subtotal</span>

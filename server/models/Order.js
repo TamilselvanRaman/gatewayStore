@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+﻿const mongoose = require('mongoose');
 
 const OrderItemSchema = new mongoose.Schema({
   product: {
@@ -8,7 +8,7 @@ const OrderItemSchema = new mongoose.Schema({
   },
   title: { type: String, required: true },
   quantity: { type: Number, required: true },
-  price: { type: Number, required: true } // Price at the time of purchase
+  price: { type: Number, required: true }
 });
 
 const OrderAddressSchema = new mongoose.Schema({
@@ -51,7 +51,7 @@ const OrderSchema = new mongoose.Schema({
   trackingNumber: {
     type: String,
     default: function() {
-      // Generate standard track ID
+
       return 'GTS-' + Math.floor(100000 + Math.random() * 900000);
     }
   }

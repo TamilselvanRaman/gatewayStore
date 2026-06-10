@@ -1,17 +1,14 @@
-import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+﻿import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 
-// Public Pages
 import Home from './pages/Home';
 import Products from './pages/Products';
 import ProductDetails from './pages/ProductDetails';
 import Login from './pages/Login';
 import Register from './pages/Register';
 
-
-// Private Customer Pages
 import Cart from './pages/Cart';
 import Wishlist from './pages/Wishlist';
 import Checkout from './pages/Checkout';
@@ -19,7 +16,6 @@ import Orders from './pages/Orders';
 import OrderDetails from './pages/OrderDetails';
 import Profile from './pages/Profile';
 
-// Admin Pages
 import AdminProducts from './pages/AdminProducts';
 import AdminCategories from './pages/AdminCategories';
 import AdminOrders from './pages/AdminOrders';
@@ -32,12 +28,12 @@ function AppContent() {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      {/* Hide storefront Navbar for admin control routes */}
+      {}
       {!isAdminRoute && <Navbar />}
       
       <main className="flex-grow-1">
         <Routes>
-          {/* Public Routes */}
+          {}
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<ProductDetails />} />
@@ -47,8 +43,7 @@ function AppContent() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-
-          {/* Protected Customer Routes */}
+          {}
           <Route 
             path="/cart" 
             element={
@@ -98,7 +93,7 @@ function AppContent() {
             } 
           />
 
-          {/* Protected Admin Routes */}
+          {}
           <Route 
             path="/admin" 
             element={<Navigate to="/admin/products" replace />} 
@@ -152,12 +147,12 @@ function AppContent() {
             } 
           />
 
-          {/* Fallback route */}
+          {}
           <Route path="*" element={<Home />} />
         </Routes>
       </main>
 
-      {/* Hide storefront Footer for admin control routes */}
+      {}
       {!isAdminRoute && <Footer />}
     </div>
   );

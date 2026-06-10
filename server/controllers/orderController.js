@@ -1,11 +1,8 @@
-const Order = require('../models/Order');
+﻿const Order = require('../models/Order');
 const Product = require('../models/Product');
 const Cart = require('../models/Cart');
 const User = require('../models/User');
 
-// @desc    Create new order (Checkout)
-// @route   POST /api/orders
-// @access  Private
 const createOrder = async (req, res) => {
   try {
     const { products, address, paymentMethod, totalAmount } = req.body;
@@ -18,7 +15,6 @@ const createOrder = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Please provide shipping address' });
     }
 
-    // Double-check stock availability and adjust stock
     for (const item of products) {
       const product = await Product.findById(item.product);
       if (!product) {
@@ -32,12 +28,10 @@ const createOrder = async (req, res) => {
         });
       }
 
-      // Decrement stock
       product.stock -= item.quantity;
       await product.save();
     }
 
-    // Set payment status based on method
     const paymentStatus = paymentMethod === 'Card' || paymentMethod === 'UPI' ? 'Paid' : 'Pending';
 
     const order = await Order.create({
@@ -49,7 +43,6 @@ const createOrder = async (req, res) => {
       totalAmount
     });
 
-    // Clear cart upon successful order
     const cart = await Cart.findOne({ user: req.user._id });
     if (cart) {
       cart.products = [];
@@ -62,9 +55,6 @@ const createOrder = async (req, res) => {
   }
 };
 
-// @desc    Get logged in user orders
-// @route   GET /api/orders/myorders
-// @access  Private
 const getMyOrders = async (req, res) => {
   try {
     const orders = await Order.find({ user: req.user._id }).sort({ createdAt: -1 });
@@ -74,9 +64,6 @@ const getMyOrders = async (req, res) => {
   }
 };
 
-// @desc    Get order by ID
-// @route   GET /api/orders/:id
-// @access  Private
 const getOrderById = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id)
@@ -86,7 +73,6 @@ const getOrderById = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Order not found' });
     }
 
-    // Authorize: Admin or Owner
     if (
       req.user.role !== 'admin' &&
       order.user._id.toString() !== req.user._id.toString()
@@ -100,9 +86,6 @@ const getOrderById = async (req, res) => {
   }
 };
 
-// @desc    Get all orders (Admin)
-// @route   GET /api/orders
-// @access  Private/Admin
 const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.find({})
@@ -114,9 +97,6 @@ const getAllOrders = async (req, res) => {
   }
 };
 
-// @desc    Update order status (Admin)
-// @route   PUT /api/orders/:id
-// @access  Private/Admin
 const updateOrderStatus = async (req, res) => {
   try {
     const { orderStatus, paymentStatus } = req.body;
@@ -126,7 +106,6 @@ const updateOrderStatus = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Order not found' });
     }
 
-    // Authorization: Admin can update anything. Customer can only cancel their own Pending order.
     if (req.user.role !== 'admin') {
       if (order.user.toString() !== req.user._id.toString()) {
         return res.status(403).json({ success: false, message: 'Not authorized to modify this order' });
@@ -141,7 +120,6 @@ const updateOrderStatus = async (req, res) => {
       }
     }
 
-    // If order is transitioning to Cancelled, restore stock
     if (orderStatus === 'Cancelled' && order.orderStatus !== 'Cancelled') {
       for (const item of order.products) {
         const product = await Product.findById(item.product);
@@ -156,7 +134,7 @@ const updateOrderStatus = async (req, res) => {
     if (req.user.role === 'admin' && paymentStatus) {
       order.paymentStatus = paymentStatus;
     } else if (orderStatus === 'Cancelled') {
-      order.paymentStatus = 'Failed'; // Set failed/refund pending on cancel
+      order.paymentStatus = 'Failed';
     }
 
     const updatedOrder = await order.save();
@@ -166,21 +144,15 @@ const updateOrderStatus = async (req, res) => {
   }
 };
 
-// @desc    Get admin statistics
-// @route   GET /api/orders/admin/stats
-// @access  Private/Admin
 const getAdminStats = async (req, res) => {
   try {
     const totalProducts = await Product.countDocuments({});
     const totalOrders = await Order.countDocuments({});
     const totalCustomers = await User.countDocuments({ role: 'customer' });
 
-    // Calculate total revenue
     const paidOrders = await Order.find({ paymentStatus: 'Paid' });
     const totalRevenue = paidOrders.reduce((sum, order) => sum + order.totalAmount, 0);
 
-    // Dynamic sales analytics over last 6 months (mock aggregation or simple logic)
-    // For simplicity, group orders by month
     const analytics = await Order.aggregate([
       {
         $group: {

@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext } from 'react';
+﻿import { createContext, useState, useEffect, useContext } from 'react';
 import api from '../utils/api';
 import { AuthContext } from './AuthContext';
 
@@ -9,7 +9,6 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState({ products: [] });
   const [loading, setLoading] = useState(true);
 
-  // Load cart on auth change
   useEffect(() => {
     const fetchCart = async () => {
       setLoading(true);
@@ -21,7 +20,7 @@ export const CartProvider = ({ children }) => {
           console.error('Error fetching cart from server', error);
         }
       } else {
-        // Load guest cart from localStorage
+
         const localCart = localStorage.getItem('gateway_guest_cart');
         setCart(localCart ? JSON.parse(localCart) : { products: [] });
       }
@@ -31,13 +30,11 @@ export const CartProvider = ({ children }) => {
     fetchCart();
   }, [user]);
 
-  // Synchronize guest cart changes to localStorage
   const saveGuestCart = (newCart) => {
     localStorage.setItem('gateway_guest_cart', JSON.stringify(newCart));
     setCart(newCart);
   };
 
-  // Add Item to Cart
   const addToCart = async (product, quantity = 1) => {
     if (user) {
       try {
@@ -51,7 +48,7 @@ export const CartProvider = ({ children }) => {
         };
       }
     } else {
-      // Guest logic
+
       const newCart = { ...cart };
       const existingItemIndex = newCart.products.findIndex(
         (item) => item.product._id === product._id
@@ -68,7 +65,6 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // Update Item Quantity in Cart
   const updateQuantity = async (productId, quantity) => {
     if (user) {
       try {
@@ -82,7 +78,7 @@ export const CartProvider = ({ children }) => {
         };
       }
     } else {
-      // Guest logic
+
       const newCart = { ...cart };
       const existingItemIndex = newCart.products.findIndex(
         (item) => item.product._id === productId
@@ -96,7 +92,6 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // Remove Item from Cart
   const removeFromCart = async (productId) => {
     if (user) {
       try {
@@ -110,7 +105,7 @@ export const CartProvider = ({ children }) => {
         };
       }
     } else {
-      // Guest logic
+
       const newCart = { ...cart };
       newCart.products = newCart.products.filter(
         (item) => item.product._id !== productId
@@ -120,7 +115,6 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // Clear Cart
   const clearCart = async () => {
     if (user) {
       try {
@@ -134,7 +128,6 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // Calculations
   const cartItemCount = cart.products.reduce((acc, item) => acc + item.quantity, 0);
   
   const cartSubtotal = cart.products.reduce((acc, item) => {

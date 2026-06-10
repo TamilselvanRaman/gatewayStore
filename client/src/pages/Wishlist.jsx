@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+﻿import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { FiHeart, FiShoppingCart, FiTrash2 } from 'react-icons/fi';
 import { WishlistContext } from '../context/WishlistContext';
@@ -21,9 +21,9 @@ const Wishlist = () => {
   const handleMoveToCart = async (e, product) => {
     e.preventDefault();
     e.stopPropagation();
-    // Add to cart
+
     await addToCart(product, 1);
-    // Remove from wishlist
+
     await toggleWishlist(product);
   };
 
@@ -51,7 +51,7 @@ const Wishlist = () => {
             return (
               <div key={product._id} className="col-12 col-md-6 col-lg-3">
                 <div className="card h-100 gateway-card border-0 position-relative">
-                  {/* Remove Button */}
+                  {}
                   <button
                     onClick={() => toggleWishlist(product)}
                     className="btn btn-light rounded-circle shadow-sm position-absolute top-3 end-3 p-2 border-0 z-3"
@@ -61,7 +61,7 @@ const Wishlist = () => {
                     <FiTrash2 className="text-danger" size={16} />
                   </button>
 
-                  {/* Image */}
+                  {}
                   <Link to={`/products/${product._id}`} className="text-decoration-none">
                     <div className="d-flex align-items-center justify-content-center p-3 bg-light rounded-top text-center" style={{ height: '180px' }}>
                       <span className="fw-extrabold text-muted fs-7 text-uppercase tracking-wider">
@@ -70,7 +70,7 @@ const Wishlist = () => {
                     </div>
                   </Link>
 
-                  {/* Body */}
+                  {}
                   <div className="card-body d-flex flex-column justify-content-between p-3">
                     <div>
                       <span className="text-uppercase text-orange fw-bold fs-8 font-headings mb-1 d-block">{product.brand}</span>
@@ -80,7 +80,7 @@ const Wishlist = () => {
                     </div>
 
                     <div>
-                      {/* Price */}
+                      {}
                       <div className="d-flex align-items-baseline gap-2 mb-3">
                         <span className="fs-5 fw-bold text-blue font-headings">₹{activePrice.toLocaleString('en-IN')}</span>
                         {hasDiscount && (
@@ -88,7 +88,7 @@ const Wishlist = () => {
                         )}
                       </div>
 
-                      {/* Move to Cart */}
+                      {}
                       {product.stock > 0 ? (
                         <button
                           onClick={(e) => handleMoveToCart(e, product)}

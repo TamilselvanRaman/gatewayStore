@@ -1,4 +1,4 @@
-const fs = require('fs');
+﻿const fs = require('fs');
 const path = require('path');
 
 const srcProduct = 'C:\\Users\\TAMILSELVAN RAMAN\\.gemini\\antigravity-ide\\brain\\f1ad3719-c47f-4a0e-a1ed-6a052e252646\\gateway_product_1781066442949.png';
@@ -31,7 +31,7 @@ const categoryImages = [
 ];
 
 try {
-  // Copy product images
+
   if (fs.existsSync(srcProduct)) {
     productImages.forEach(imgName => {
       fs.copyFileSync(srcProduct, path.join(destDir, imgName));
@@ -44,7 +44,6 @@ try {
     console.error('Source product image not found:', srcProduct);
   }
 
-  // Copy banner image
   if (fs.existsSync(srcBanner)) {
     fs.copyFileSync(srcBanner, path.join(destDir, 'banner.png'));
     console.log('Banner image copied successfully!');

@@ -8,11 +8,10 @@ const AdminProducts = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   
-  // Modal toggle state
-  const [showModal, setShowModal] = useState(false);
-  const [editProductId, setEditProductId] = useState(null); // Null means Add Product, non-null means Edit Product
 
-  // Product Form states
+  const [showModal, setShowModal] = useState(false);
+  const [editProductId, setEditProductId] = useState(null);
+
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
@@ -26,10 +25,9 @@ const AdminProducts = () => {
   const [submitError, setSubmitError] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
 
-  // Fetch list helper
   const fetchProducts = async () => {
     try {
-      const res = await api.get('/products?limit=100'); // Load large set for admin management table
+      const res = await api.get('/products?limit=100');
       setProducts(res.data.data);
     } catch (err) {
       console.error('Error fetching admin products list', err);
@@ -100,7 +98,6 @@ const AdminProducts = () => {
       return;
     }
 
-    // Prepare Multipart Form Data for Multer upload
     const formData = new FormData();
     formData.append('title', title);
     formData.append('description', description);
@@ -111,7 +108,6 @@ const AdminProducts = () => {
     formData.append('stock', stock);
     formData.append('rating', rating);
 
-    // Append images
     for (let i = 0; i < selectedFiles.length; i++) {
       formData.append('images', selectedFiles[i]);
     }
@@ -123,12 +119,12 @@ const AdminProducts = () => {
     try {
       let res;
       if (editProductId) {
-        // Edit Product
+
         res = await api.put(`/products/${editProductId}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
       } else {
-        // Create Product
+
         res = await api.post('/products', formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
@@ -137,7 +133,7 @@ const AdminProducts = () => {
       if (res.data.success) {
         setSuccessMsg(`Product ${editProductId ? 'updated' : 'created'} successfully!`);
         setShowModal(false);
-        fetchProducts(); // Refresh grid
+        fetchProducts();
       }
     } catch (err) {
       console.error('Failed to submit product form', err);
@@ -151,7 +147,7 @@ const AdminProducts = () => {
         const res = await api.delete(`/products/${id}`);
         if (res.data.success) {
           setSuccessMsg('Product deleted successfully.');
-          fetchProducts(); // Refresh list
+          fetchProducts();
         }
       } catch (err) {
         console.error('Error deleting product', err);
@@ -164,15 +160,15 @@ const AdminProducts = () => {
     <div className="container-fluid py-4 animate-fade-in">
       <div className="row">
         
-        {/* Sidebar */}
+        {}
         <div className="col-12 col-md-3 col-lg-2 mb-4 mb-md-0">
           <Sidebar />
         </div>
 
-        {/* Content */}
+        {}
         <div className="col-12 col-md-9 col-lg-10">
           
-          {/* Header */}
+          {}
           <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3">
             <div>
               <h2 className="fw-bold font-headings mb-1 text-dark">Manage Products</h2>
@@ -189,7 +185,7 @@ const AdminProducts = () => {
             </div>
           )}
 
-          {/* Catalog table */}
+          {}
           {loading ? (
             <div className="text-center py-5">
               <div className="spinner-border text-blue" role="status">
@@ -257,20 +253,20 @@ const AdminProducts = () => {
             </div>
           )}
 
-          {/* Modal popup form Add / Edit */}
+          {}
           {showModal && (
             <div className="modal show d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(30, 41, 59, 0.5)' }}>
               <div className="modal-dialog modal-lg modal-dialog-centered">
                 <div className="modal-content border-0 rounded-4 shadow-lg overflow-hidden">
                   
-                  {/* Modal Header */}
+                  {}
                   <div className="modal-header bg-dark text-white border-0 py-3 px-4">
                     <h5 className="modal-title fw-bold font-headings">{editProductId ? 'Edit Product Parameters' : 'Add New Product Listing'}</h5>
                   </div>
 
                   <form onSubmit={handleFormSubmit}>
                     
-                    {/* Modal Body */}
+                    {}
                     <div className="modal-body p-4 bg-light" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
                       
                       {submitError && (
@@ -340,7 +336,6 @@ const AdminProducts = () => {
 
                     </div>
 
-                    {/* Modal Footer */}
                     <div className="modal-footer bg-white border-0 py-3 px-4 d-flex gap-2 justify-content-end">
                       <button type="button" onClick={() => setShowModal(false)} className="btn btn-outline-secondary rounded-pill px-4 fs-7 d-flex align-items-center gap-1">
                         <FiX size={14} /> Cancel

@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react';
+﻿import { createContext, useState, useEffect } from 'react';
 import api from '../utils/api';
 
 export const AuthContext = createContext();
@@ -8,7 +8,6 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('gateway_token') || null);
   const [loading, setLoading] = useState(true);
 
-  // Load user profile on mount if token exists
   useEffect(() => {
     const fetchProfile = async () => {
       if (token) {
@@ -26,7 +25,6 @@ export const AuthProvider = ({ children }) => {
     fetchProfile();
   }, [token]);
 
-  // Login handler
   const login = async (email, password) => {
     try {
       const res = await api.post('/auth/login', { email, password });
@@ -44,7 +42,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Register handler
   const register = async (name, email, phone, password) => {
     try {
       const res = await api.post('/auth/register', { name, email, phone, password });
@@ -62,14 +59,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Logout handler
   const logout = () => {
     localStorage.removeItem('gateway_token');
     setToken(null);
     setUser(null);
   };
 
-  // Update profile
   const updateProfile = async (profileData) => {
     try {
       const res = await api.put('/auth/profile', profileData);
@@ -83,7 +78,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Manage Address (Add / Edit)
   const saveAddress = async (addressData) => {
     try {
       const res = await api.post('/auth/address', addressData);
@@ -97,7 +91,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Delete Address
   const deleteAddress = async (addressId) => {
     try {
       const res = await api.delete(`/auth/address/${addressId}`);

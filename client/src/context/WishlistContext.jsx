@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext } from 'react';
+﻿import { createContext, useState, useEffect, useContext } from 'react';
 import api from '../utils/api';
 import { AuthContext } from './AuthContext';
 
@@ -9,7 +9,6 @@ export const WishlistProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Load wishlist on auth status change
   useEffect(() => {
     const fetchWishlist = async () => {
       setLoading(true);
@@ -21,7 +20,7 @@ export const WishlistProvider = ({ children }) => {
           console.error('Error fetching wishlist from server', error);
         }
       } else {
-        // Load guest wishlist from localStorage
+
         const localWishlist = localStorage.getItem('gateway_guest_wishlist');
         setWishlist(localWishlist ? JSON.parse(localWishlist) : []);
       }
@@ -31,13 +30,11 @@ export const WishlistProvider = ({ children }) => {
     fetchWishlist();
   }, [user]);
 
-  // Synchronize guest wishlist changes to localStorage
   const saveGuestWishlist = (newWishlist) => {
     localStorage.setItem('gateway_guest_wishlist', JSON.stringify(newWishlist));
     setWishlist(newWishlist);
   };
 
-  // Toggle Item in Wishlist (Add or Remove)
   const toggleWishlist = async (product) => {
     if (user) {
       try {
@@ -51,7 +48,7 @@ export const WishlistProvider = ({ children }) => {
         };
       }
     } else {
-      // Guest logic
+
       const isAlreadyInWishlist = wishlist.some((item) => item._id === product._id);
       let newWishlist = [];
       let isAdded = false;

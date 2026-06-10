@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FiFilter, FiSearch, FiRefreshCw } from 'react-icons/fi';
 import api from '../utils/api';
@@ -11,7 +11,6 @@ const Products = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Filter states (controlled inputs)
   const [searchVal, setSearchVal] = useState(searchParams.get('search') || '');
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || '');
   const [minPrice, setMinPrice] = useState(searchParams.get('minPrice') || '');
@@ -19,12 +18,11 @@ const Products = () => {
   const [minRating, setMinRating] = useState(searchParams.get('rating') || '');
   const [sortOption, setSortOption] = useState(searchParams.get('sort') || 'newest');
   
-  // Pagination info
+
   const [currentPage, setCurrentPage] = useState(Number(searchParams.get('page')) || 1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalProductsCount, setTotalProductsCount] = useState(0);
 
-  // Fetch categories on load
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -37,7 +35,6 @@ const Products = () => {
     fetchCategories();
   }, []);
 
-  // Fetch products when URL parameters change
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
@@ -65,7 +62,7 @@ const Products = () => {
         const page = searchParams.get('page');
         if (page) queryParams.page = page;
 
-        queryParams.limit = 6; // Set display page limit to 6
+        queryParams.limit = 6;
 
         const res = await api.get('/products', { params: queryParams });
         setProducts(res.data.data);
@@ -82,7 +79,6 @@ const Products = () => {
     fetchProducts();
   }, [searchParams]);
 
-  // Sync inputs when searchParams changes (e.g. from navbar clicks)
   useEffect(() => {
     setSearchVal(searchParams.get('search') || '');
     setSelectedCategory(searchParams.get('category') || '');
@@ -96,7 +92,7 @@ const Products = () => {
   const applyFilters = (updates = {}) => {
     const newParams = new URLSearchParams(searchParams);
     
-    // Update or clear params
+
     const getVal = (key, stateVal) => updates.hasOwnProperty(key) ? updates[key] : stateVal;
 
     const s = getVal('search', searchVal);
@@ -117,7 +113,6 @@ const Products = () => {
     const sort = getVal('sort', sortOption);
     if (sort) newParams.set('sort', sort); else newParams.delete('sort');
 
-    // Reset page to 1 on filter application unless page is explicitly updated
     const pageNum = updates.hasOwnProperty('page') ? updates['page'] : 1;
     newParams.set('page', pageNum);
 
@@ -142,7 +137,7 @@ const Products = () => {
     <div className="container py-5 animate-fade-in">
       <div className="row">
         
-        {/* Left Filter Sidebar */}
+        {}
         <div className="col-lg-3 mb-4">
           <div className="gateway-card p-4 bg-white border-0 shadow-sm position-sticky" style={{ top: '100px' }}>
             <div className="d-flex justify-content-between align-items-center mb-4">
@@ -155,9 +150,7 @@ const Products = () => {
               </button>
             </div>
 
-
-
-            {/* Categories */}
+            {}
             <div className="mb-4">
               <label className="form-label fw-semibold fs-7 text-muted uppercase">Category</label>
               <select
@@ -175,7 +168,7 @@ const Products = () => {
               </select>
             </div>
 
-            {/* Price Filter */}
+            {}
             <div className="mb-4">
               <label className="form-label fw-semibold fs-7 text-muted uppercase">Price Range (₹)</label>
               <div className="d-flex align-items-center gap-2">
@@ -203,24 +196,21 @@ const Products = () => {
               </button>
             </div>
 
-
-
           </div>
         </div>
 
-        {/* Right Catalog Grid */}
+        {}
         <div className="col-lg-9">
-          {/* Top Info and Sorting Header */}
+          {}
           <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
             <div>
               <h4 className="fw-bold font-headings mb-1">E-Commerce Shop</h4>
               <p className="text-muted mb-0 fs-7">Showing <strong>{products.length}</strong> of <strong>{totalProductsCount}</strong> products</p>
             </div>
 
-
           </div>
 
-          {/* Grid Products content */}
+          {}
           {loading ? (
             <SkeletonLoader type="grid" count={6} />
           ) : products.length === 0 ? (
@@ -242,7 +232,7 @@ const Products = () => {
                 ))}
               </div>
 
-              {/* Pagination UI */}
+              {}
               {totalPages > 1 && (
                 <nav className="d-flex justify-content-center mt-5">
                   <ul className="pagination gap-2 border-0">

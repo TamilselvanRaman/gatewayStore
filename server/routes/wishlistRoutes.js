@@ -1,9 +1,9 @@
-const express = require('express');
+﻿const express = require('express');
 const router = express.Router();
 const { getWishlist, toggleWishlist } = require('../controllers/wishlistController');
 const { protect } = require('../middleware/auth');
 
-router.use(protect); // Require login for all wishlist operations
+router.use(protect);
 
 router.get('/', getWishlist);
 router.post('/', toggleWishlist);

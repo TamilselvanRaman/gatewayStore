@@ -7,12 +7,11 @@ const AdminCategories = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Form fields
   const [name, setName] = useState('');
   const [file, setFile] = useState(null);
   const [editCategoryId, setEditCategoryId] = useState(null);
   
-  // Status message
+
   const [statusMsg, setStatusMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -73,12 +72,12 @@ const AdminCategories = () => {
     try {
       let res;
       if (editCategoryId) {
-        // Edit Category
+
         res = await api.put(`/categories/${editCategoryId}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
       } else {
-        // Create Category
+
         res = await api.post('/categories', formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
@@ -89,7 +88,7 @@ const AdminCategories = () => {
         setName('');
         setFile(null);
         setEditCategoryId(null);
-        fetchCategories(); // Refresh list
+        fetchCategories();
       }
     } catch (err) {
       console.error('Category form submission error', err);
@@ -118,12 +117,12 @@ const AdminCategories = () => {
     <div className="container-fluid py-4 animate-fade-in">
       <div className="row">
         
-        {/* Sidebar */}
+        {}
         <div className="col-12 col-md-3 col-lg-2 mb-4 mb-md-0">
           <Sidebar />
         </div>
 
-        {/* Content */}
+        {}
         <div className="col-12 col-md-9 col-lg-10">
           
           <div className="mb-4">
@@ -144,7 +143,7 @@ const AdminCategories = () => {
 
           <div className="row g-4">
             
-            {/* Left: Creator / Editor Form */}
+            {}
             <div className="col-lg-4">
               <div className="gateway-card p-4 bg-white border-0 shadow-sm">
                 <h5 className="fw-bold font-headings mb-4 text-dark border-bottom pb-2 d-flex align-items-center gap-2">
@@ -153,7 +152,7 @@ const AdminCategories = () => {
                 </h5>
 
                 <form onSubmit={handleSubmit} className="d-flex flex-column gap-3">
-                  {/* Category Name */}
+                  {}
                   <div>
                     <label className="form-label fw-bold text-dark fs-7">Category Name *</label>
                     <input
@@ -166,7 +165,6 @@ const AdminCategories = () => {
                     />
                   </div>
 
-                  {/* Icon/Image File */}
                   <div>
                     <label className="form-label fw-bold text-dark fs-7">Category Banner Image</label>
                     <input
@@ -174,12 +172,9 @@ const AdminCategories = () => {
                       className="form-control gateway-input bg-light fs-7"
                       onChange={handleFileChange}
                       accept="image/*"
-                      required={!editCategoryId} // Required only on creation
                     />
-                    <small className="text-muted mt-1 d-block fs-8">Select an icon or category image to display.</small>
                   </div>
 
-                  {/* Actions */}
                   <div className="d-flex gap-2 mt-2 pt-2 border-top">
                     <button type="submit" className="btn btn-gateway-primary btn-sm rounded-pill px-3 py-2 fs-7 flex-grow-1">
                       {editCategoryId ? 'Save Changes' : 'Create Category'}
@@ -194,7 +189,6 @@ const AdminCategories = () => {
               </div>
             </div>
 
-            {/* Right: Category Table */}
             <div className="col-lg-8">
               {loading ? (
                 <div className="text-center py-5">

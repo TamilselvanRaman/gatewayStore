@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+﻿import { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FiMail, FiLock, FiAlertCircle, FiEye, FiEyeOff } from 'react-icons/fi';
 import { AuthContext } from '../context/AuthContext';
@@ -17,7 +17,6 @@ const Login = () => {
   const [errorMsg, setErrorMsg] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
-  // If already logged in, redirect away
   useEffect(() => {
     if (user) {
       const fromPath = location.state?.from?.pathname || '/';
@@ -65,7 +64,7 @@ const Login = () => {
         )}
 
         <form onSubmit={handleSubmit} className="d-flex flex-column gap-3">
-          {/* Email field */}
+          {}
           <div>
             <label className="form-label fw-bold text-dark fs-7">Email Address</label>
             <div className="input-group">
@@ -81,7 +80,7 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Password field */}
+          {}
           <div>
             <div className="d-flex justify-content-between align-items-center mb-1">
               <label className="form-label fw-bold text-dark fs-7 mb-0">Password</label>
@@ -108,7 +107,7 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Remember Me */}
+          {}
           <div className="form-check my-1">
             <input
               type="checkbox"
@@ -122,7 +121,7 @@ const Login = () => {
             </label>
           </div>
 
-          {/* Submit */}
+          {}
           <button
             type="submit"
             className="btn btn-gateway-primary py-3 rounded-pill fw-bold font-headings mt-2"
@@ -131,7 +130,6 @@ const Login = () => {
             {submitting ? 'Authenticating...' : 'Sign In'}
           </button>
         </form>
-
 
         <div className="text-center mt-4 pt-2 border-top border-light">
           <p className="text-muted fs-7 mb-0">

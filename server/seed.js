@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+﻿const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bcrypt = require('bcryptjs');
 const User = require('./models/User');
@@ -7,7 +7,6 @@ const Product = require('./models/Product');
 const Cart = require('./models/Cart');
 const Order = require('./models/Order');
 
-// Load environment variables
 dotenv.config();
 
 const categoriesData = [
@@ -113,7 +112,6 @@ const seedDB = async () => {
     await mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/gateway_store');
     console.log('Seed connection active...');
 
-    // Clear tables
     await User.deleteMany({});
     await Category.deleteMany({});
     await Product.deleteMany({});
@@ -121,8 +119,6 @@ const seedDB = async () => {
     await Order.deleteMany({});
     console.log('Cleaned database documents.');
 
-    // Seed Users
-    // Admin password hashed automatically in Pre-save hook, but let's make sure it triggers
     const adminUser = new User({
       name: 'Admin Gateway',
       email: 'admin@gateway.com',
@@ -151,7 +147,6 @@ const seedDB = async () => {
     await customerUser.save();
     console.log('Seeded Users: admin@gateway.com & user@gateway.com');
 
-    // Seed Categories
     const categoriesMap = {};
     for (const cat of categoriesData) {
       const createdCat = await Category.create(cat);
@@ -159,7 +154,6 @@ const seedDB = async () => {
     }
     console.log('Seeded Categories successfully');
 
-    // Seed Products
     const products = getProductsData(categoriesMap);
     await Product.insertMany(products);
     console.log('Seeded Products successfully');

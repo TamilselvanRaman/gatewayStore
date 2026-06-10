@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+﻿import { Link } from 'react-router-dom';
 import { FiMail, FiPhone, FiMapPin, FiTwitter, FiFacebook, FiInstagram, FiLinkedin } from 'react-icons/fi';
 
 const Footer = () => {
@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="container text-center text-md-start">
         <div className="row text-center text-md-start">
           
-          {/* Brand Info */}
+          {}
           <div className="col-md-6 mt-3 text-center text-md-start">
             <Link className="text-decoration-none fs-3 fw-bolder font-headings d-flex align-items-center mb-3 justify-content-center justify-content-md-start gap-2" to="/">
               <img src="/logo.png" alt="Gateway Store Logo" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} />
@@ -19,7 +19,7 @@ const Footer = () => {
             <p className="text-white-50" style={{ fontSize: '14px', lineHeight: '24px' }}>
               Your ultimate destination for premium quality tech gadgets, smart devices, and accessories. Empowering your digital workspace.
             </p>
-            {/* Social Icons */}
+            {}
             <div className="d-flex gap-3 mt-4 justify-content-center justify-content-md-start">
               <a href="#" className="text-white-50 hover-text-blue" style={{ transition: 'color 0.3s' }}><FiFacebook size={20} /></a>
               <a href="#" className="text-white-50 hover-text-blue" style={{ transition: 'color 0.3s' }}><FiTwitter size={20} /></a>
@@ -28,7 +28,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Contact Details */}
+          {}
           <div className="col-md-6 mt-3 text-center text-md-start d-flex flex-column align-items-center align-items-md-end justify-content-center">
             <div style={{ maxWidth: '300px' }}>
               <h5 className="text-uppercase mb-4 font-headings fw-bold text-orange text-center text-md-start">Get In Touch</h5>

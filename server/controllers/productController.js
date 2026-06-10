@@ -1,11 +1,8 @@
-const Product = require('../models/Product');
+﻿const Product = require('../models/Product');
 const Category = require('../models/Category');
 const fs = require('fs');
 const path = require('path');
 
-// @desc    Get products with search, filter, sort, and pagination
-// @route   GET /api/products
-// @access  Public
 const getProducts = async (req, res) => {
   try {
     const {
@@ -22,7 +19,6 @@ const getProducts = async (req, res) => {
 
     const query = {};
 
-    // Text Search
     if (search) {
       query.$or = [
         { title: { $regex: search, $options: 'i' } },
@@ -31,30 +27,25 @@ const getProducts = async (req, res) => {
       ];
     }
 
-    // Category Filter (Can be ID or name. We'll search by ID)
     if (category) {
       query.category = category;
     }
 
-    // Brand Filter
     if (brand) {
       query.brand = { $regex: brand, $options: 'i' };
     }
 
-    // Price Filter
     if (minPrice || maxPrice) {
       query.price = {};
       if (minPrice) query.price.$gte = Number(minPrice);
       if (maxPrice) query.price.$lte = Number(maxPrice);
     }
 
-    // Rating Filter
     if (rating) {
       query.rating = { $gte: Number(rating) };
     }
 
-    // Sorting
-    let sortQuery = { createdAt: -1 }; // Default new arrivals
+    let sortQuery = { createdAt: -1 };
     if (sort) {
       if (sort === 'priceAsc') sortQuery = { price: 1 };
       else if (sort === 'priceDesc') sortQuery = { price: -1 };
@@ -62,7 +53,6 @@ const getProducts = async (req, res) => {
       else if (sort === 'oldest') sortQuery = { createdAt: 1 };
     }
 
-    // Pagination
     const pageNum = Number(page);
     const limitNum = Number(limit);
     const skipNum = (pageNum - 1) * limitNum;
@@ -90,9 +80,6 @@ const getProducts = async (req, res) => {
   }
 };
 
-// @desc    Get single product by ID
-// @route   GET /api/products/:id
-// @access  Public
 const getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id).populate('category', 'name');
@@ -101,7 +88,6 @@ const getProductById = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Product not found' });
     }
 
-    // Fetch related products (same category, excluding current product)
     const relatedProducts = await Product.find({
       category: product.category._id,
       _id: { $ne: product._id }
@@ -117,9 +103,6 @@ const getProductById = async (req, res) => {
   }
 };
 
-// @desc    Create a product (Admin)
-// @route   POST /api/products
-// @access  Private/Admin
 const createProduct = async (req, res) => {
   try {
     const { title, description, category, brand, price, discountPrice, stock, rating } = req.body;
@@ -128,7 +111,6 @@ const createProduct = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Please provide all required fields' });
     }
 
-    // Check if category exists
     const categoryExists = await Category.findById(category);
     if (!categoryExists) {
       return res.status(404).json({ success: false, message: 'Category not found' });
@@ -159,9 +141,6 @@ const createProduct = async (req, res) => {
   }
 };
 
-// @desc    Update a product (Admin)
-// @route   PUT /api/products/:id
-// @access  Private/Admin
 const updateProduct = async (req, res) => {
   try {
     const { title, description, category, brand, price, discountPrice, stock, rating, deleteExistingImages } = req.body;
@@ -171,7 +150,6 @@ const updateProduct = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Product not found' });
     }
 
-    // Validate category if updating
     if (category) {
       const categoryExists = await Category.findById(category);
       if (!categoryExists) {
@@ -188,13 +166,11 @@ const updateProduct = async (req, res) => {
     product.stock = stock !== undefined ? Number(stock) : product.stock;
     product.rating = rating !== undefined ? Number(rating) : product.rating;
 
-    // Handle Image upload updates
     if (req.files && req.files.length > 0) {
       const newImages = req.files.map(file => file.filename);
 
-      // If flag is true, replace all old images. Otherwise, append new ones.
       if (deleteExistingImages === 'true' || deleteExistingImages === true) {
-        // Delete physical files
+
         product.images.forEach(img => {
           if (img !== 'default-product.png') {
             const imagePath = path.join(__dirname, '../uploads', img);
@@ -205,7 +181,7 @@ const updateProduct = async (req, res) => {
         });
         product.images = newImages;
       } else {
-        // If it was just default-product.png, remove it first
+
         if (product.images.length === 1 && product.images[0] === 'default-product.png') {
           product.images = newImages;
         } else {
@@ -221,9 +197,6 @@ const updateProduct = async (req, res) => {
   }
 };
 
-// @desc    Delete a product (Admin)
-// @route   DELETE /api/products/:id
-// @access  Private/Admin
 const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -232,7 +205,6 @@ const deleteProduct = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Product not found' });
     }
 
-    // Delete associated physical images
     product.images.forEach(img => {
       if (img !== 'default-product.png') {
         const imagePath = path.join(__dirname, '../uploads', img);

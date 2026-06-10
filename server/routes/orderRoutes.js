@@ -1,4 +1,4 @@
-const express = require('express');
+﻿const express = require('express');
 const router = express.Router();
 const {
   createOrder,
@@ -10,7 +10,7 @@ const {
 } = require('../controllers/orderController');
 const { protect, isAdmin } = require('../middleware/auth');
 
-router.use(protect); // Require login for all order operations
+router.use(protect);
 
 router.post('/', createOrder);
 router.get('/myorders', getMyOrders);

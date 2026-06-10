@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiChevronRight } from 'react-icons/fi';
 import api from '../utils/api';
@@ -9,14 +9,13 @@ const Home = () => {
   const [categories, setCategories] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('all'); // 'all', 'workstations', 'peripherals', 'audio'
+  const [activeTab, setActiveTab] = useState('all');
 
-  // Curated categories matching the design screenshot
   const staticCategories = [
     {
       name: 'Electronics',
       image: 'https://images.unsplash.com/photo-1588449668365-d15e397f6787?q=80&w=400&auto=format&fit=crop',
-      idName: 'Computing' // Fallback/map to Computing category ID
+      idName: 'Computing'
     },
     {
       name: 'Fashion',
@@ -63,7 +62,6 @@ const Home = () => {
     fetchHomeData();
   }, []);
 
-  // Helper to determine the routing path of each category card
   const getCategoryLink = (cat) => {
     if (cat.link) return cat.link;
     const matched = categories.find(
@@ -72,7 +70,6 @@ const Home = () => {
     return matched ? `/products?category=${matched._id}` : '/products';
   };
 
-  // Filter products based on selected tab
   const filteredProducts = allProducts.filter((prod) => {
     if (activeTab === 'all') return true;
     const catName = prod.category?.name?.toLowerCase() || '';
@@ -101,7 +98,7 @@ const Home = () => {
   return (
     <div className="animate-fade-in bg-white">
       
-      {/* Shop by Categories Section */}
+      {}
       <section className="container py-5 mt-3">
         <div className="d-flex justify-content-between align-items-baseline mb-4 pb-2">
           <div>
@@ -131,7 +128,7 @@ const Home = () => {
                   className="overflow-hidden mb-3 mx-auto shadow-sm" 
                   style={{ 
                     width: '100%', 
-                    paddingTop: '100%', // 1:1 square ratio
+                    paddingTop: '100%',
                     position: 'relative', 
                     borderRadius: '24px', 
                     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -161,11 +158,11 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Trending Hardware Section */}
+      {}
       <section className="py-5 mt-4" style={{ backgroundColor: '#F3F6FC', borderTop: '1px solid rgba(79, 125, 243, 0.05)' }}>
         <div className="container py-3">
           
-          {/* Section Heading & Filter Tabs */}
+          {}
           <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-5 gap-3">
             <div>
               <h2 className="fw-extrabold font-headings mb-0" style={{ color: '#1E293B', fontSize: '2.25rem' }}>
@@ -173,7 +170,7 @@ const Home = () => {
               </h2>
             </div>
             
-            {/* Filtering Tabs */}
+            {}
             <div className="d-flex flex-wrap gap-2">
               <button 
                 style={getTabStyle('all')} 
@@ -202,7 +199,7 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Dynamic Grid */}
+          {}
           {loading ? (
             <SkeletonLoader type="grid" count={4} />
           ) : filteredProducts.length === 0 ? (

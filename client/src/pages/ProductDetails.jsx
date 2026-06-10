@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+﻿import { useState, useEffect, useContext } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { FiHeart, FiShoppingCart, FiArrowLeft, FiCheckCircle } from 'react-icons/fi';
 import { FaHeart, FaStar } from 'react-icons/fa';
@@ -40,7 +40,7 @@ const ProductDetails = () => {
       }
     };
     fetchProductDetails();
-    setQuantity(1); // Reset qty on product change
+    setQuantity(1);
   }, [id]);
 
   if (loading) {
@@ -99,16 +99,16 @@ const ProductDetails = () => {
 
   return (
     <div className="container py-5 animate-fade-in">
-      {/* Back Link */}
+      {}
       <Link to="/products" className="btn btn-link text-muted text-decoration-none fw-semibold d-inline-flex align-items-center gap-2 mb-4">
         <FiArrowLeft /> Back to Catalog
       </Link>
 
       <div className="row g-5 mb-5">
-        {/* Left: Product Placeholder Box */}
+        {}
         <div className="col-lg-6">
           <div className="gateway-card p-3 bg-white border-0 shadow-sm d-flex flex-column gap-3 h-100 justify-content-center">
-            {/* Alt name placeholder view */}
+            {}
             <div className="d-flex align-items-center justify-content-center bg-light rounded-3 p-5" style={{ minHeight: '400px' }}>
               <span className="fw-bold font-headings text-muted fs-4 text-uppercase text-center px-4 leading-relaxed">
                 {title}
@@ -117,21 +117,21 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        {/* Right: Product Details Info */}
+        {}
         <div className="col-lg-6">
           <div className="gateway-card p-4 p-md-5 bg-white border-0 shadow-sm rounded-4 h-100">
             <div className="d-flex flex-column h-100 justify-content-between">
               <div>
-                {/* Brand and category */}
+                {}
                 <div className="d-flex justify-content-between align-items-center mb-2">
                   <span className="text-uppercase text-orange fw-bold font-headings fs-6">{brand}</span>
                   <span className="badge bg-light text-muted border px-3 py-2 rounded-pill fs-7">{category?.name}</span>
                 </div>
 
-                {/* Title */}
+                {}
                 <h1 className="fw-bold font-headings mb-3 fs-2">{title}</h1>
 
-                {/* Rating */}
+                {}
                 <div className="d-flex align-items-center mb-4">
                   <div className="text-warning d-flex align-items-center gap-1">
                     <FaStar size={18} />
@@ -140,7 +140,7 @@ const ProductDetails = () => {
                   <span className="text-muted ms-3 fs-7">| Verified Customer Reviews</span>
                 </div>
 
-                {/* Stock Status Badge */}
+                {}
                 <div className="mb-4">
                   <span className={`badge px-3 py-2 rounded-pill fw-semibold fs-7 ${stockStatus.class}`}>
                     {stockStatus.label}
@@ -149,7 +149,7 @@ const ProductDetails = () => {
 
                 <hr className="my-4 text-muted" />
 
-                {/* Price */}
+                {}
                 <div className="mb-4">
                   <div className="d-flex align-items-center gap-3">
                     <h2 className="fw-bold text-blue font-headings fs-1 mb-0">₹{activePrice.toLocaleString('en-IN')}</h2>
@@ -162,13 +162,13 @@ const ProductDetails = () => {
                   </div>
                 </div>
 
-                {/* Description */}
+                {}
                 <div className="mb-4">
                   <h5 className="fw-bold font-headings mb-2">Product Overview</h5>
                   <p className="text-muted fs-6 leading-relaxed mb-0">{description}</p>
                 </div>
 
-                {/* Product Specifications Mock */}
+                {}
                 <div className="mb-4">
                   <h5 className="fw-bold font-headings mb-2">Specifications</h5>
                   <div className="gateway-card bg-light p-3 border-0 rounded-3">
@@ -184,7 +184,7 @@ const ProductDetails = () => {
                 </div>
 
                 {stock > 0 && (
-                  /* Quantity adjustment */
+                  
                   <div className="d-flex align-items-center gap-3 mb-4">
                     <span className="fw-bold text-dark fs-6">Quantity:</span>
                     <div className="input-group" style={{ width: '130px' }}>
@@ -196,7 +196,7 @@ const ProductDetails = () => {
                 )}
               </div>
 
-              {/* Action buttons */}
+              {}
               <div className="d-flex flex-column flex-sm-row gap-3 pt-3">
                 {stock > 0 ? (
                   <>
@@ -220,7 +220,7 @@ const ProductDetails = () => {
                   </button>
                 )}
 
-                {/* Wishlist toggle */}
+                {}
                 <button
                   onClick={() => toggleWishlist(product)}
                   className="btn btn-outline-secondary rounded-pill p-3 border-2 d-flex align-items-center justify-content-center"
@@ -239,7 +239,7 @@ const ProductDetails = () => {
         </div>
       </div>
 
-      {/* Related Products Section */}
+      {}
       {related.length > 0 && (
         <div className="mt-5 pt-5 border-top border-light">
           <h3 className="fw-bold font-headings mb-4">You May Also Like</h3>
