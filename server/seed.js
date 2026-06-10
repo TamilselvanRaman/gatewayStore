@@ -1,6 +1,5 @@
-﻿const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const bcrypt = require('bcryptjs');
 const User = require('./models/User');
 const Category = require('./models/Category');
 const Product = require('./models/Product');
@@ -17,55 +16,23 @@ const categoriesData = [
 ];
 
 const getProductsData = (categoryIds) => [
-  {
-    title: 'Lumina X-Pro Camera',
-    description: 'Professional DSLR camera featuring 45MP full-frame sensor, 8K video recording, and advanced autofocus. Built for visual storytellers and photography professionals.',
-    category: categoryIds['Photography'],
-    brand: 'Photography',
-    images: ['https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop'],
-    price: 1599,
-    discountPrice: 1299,
-    stock: 15,
-    rating: 4.8
-  },
-  {
-    title: 'Zenith ANC Headphones',
-    description: 'Premium active noise-cancelling wireless headphones with custom high-fidelity drivers, 40 hours of battery life, and crystal-clear call quality.',
-    category: categoryIds['Audio'],
-    brand: 'Audio',
-    images: ['https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop'],
-    price: 349,
-    discountPrice: 0,
-    stock: 25,
-    rating: 4.5
-  },
-  {
-    title: 'Classic Minimal Watch',
-    description: 'Elegant minimalist timepiece with surgical-grade stainless steel case, genuine Italian leather strap, and precise Swiss quartz movement.',
-    category: categoryIds['Accessories'],
-    brand: 'Accessories',
-    images: ['https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop'],
-    price: 189,
-    discountPrice: 0,
-    stock: 40,
-    rating: 4.7
-  },
+
   {
     title: 'ApexBook Pro 14 Laptop',
-    description: 'Ultra-thin computing powerhouse with 14-inch Liquid Retina display, 10-core CPU, 16GB unified memory, and 512GB SSD. Perfect for professional workflows.',
+    description: 'Ultra-thin computing powerhouse with 14-inch Liquid Retina display, 10-core CPU, 16GB unified memory, and 512GB SSD. Perfect for professional workflows and creative work.',
     category: categoryIds['Computing'],
-    brand: 'Computing',
+    brand: 'ApexBook',
     images: ['https://images.unsplash.com/photo-1496181130204-7552cc14bac4?q=80&w=600&auto=format&fit=crop'],
     price: 1899,
-    discountPrice: 0,
+    discountPrice: 1699,
     stock: 8,
     rating: 4.9
   },
   {
     title: 'Specter Gaming V2',
-    description: 'Ultimate esports laptop featuring high-refresh-rate display, RTX graphics, liquid cooling system, and mechanical keyboard. Unleash maximum framerates.',
+    description: 'Ultimate esports laptop featuring 144Hz high-refresh-rate display, RTX 4060 graphics, liquid cooling system, and RGB mechanical keyboard. Unleash maximum framerates.',
     category: categoryIds['Computing'],
-    brand: 'Computing',
+    brand: 'Specter',
     images: ['https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?q=80&w=600&auto=format&fit=crop'],
     price: 2499,
     discountPrice: 2299,
@@ -73,10 +40,33 @@ const getProductsData = (categoryIds) => [
     rating: 4.8
   },
   {
-    title: 'BassBlast Outdoor Speaker',
-    description: 'Rugged, IPX7 waterproof portable speaker with rich bass, dual drivers, and 24-hour playtime. Bring the party anywhere.',
+    title: 'SlimPad Ultra Chromebook',
+    description: 'Lightweight 13-inch Chromebook with all-day battery life, fast boot in 6 seconds, and seamless Google ecosystem integration. Ideal for students and remote workers.',
+    category: categoryIds['Computing'],
+    brand: 'SlimPad',
+    images: ['https://images.unsplash.com/photo-1611532736597-de2d4265fba3?q=80&w=600&auto=format&fit=crop'],
+    price: 649,
+    discountPrice: 549,
+    stock: 20,
+    rating: 4.5
+  },
+
+  {
+    title: 'Zenith ANC Headphones',
+    description: 'Premium active noise-cancelling wireless headphones with custom high-fidelity drivers, 40 hours of battery life, and crystal-clear call quality for professionals.',
     category: categoryIds['Audio'],
-    brand: 'Audio',
+    brand: 'Zenith',
+    images: ['https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop'],
+    price: 349,
+    discountPrice: 299,
+    stock: 25,
+    rating: 4.7
+  },
+  {
+    title: 'BassBlast Outdoor Speaker',
+    description: 'Rugged IPX7 waterproof portable Bluetooth speaker with 360° rich bass, dual passive radiators, and 24-hour playtime. Bring the party anywhere outdoors.',
+    category: categoryIds['Audio'],
+    brand: 'BassBlast',
     images: ['https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?q=80&w=600&auto=format&fit=crop'],
     price: 129,
     discountPrice: 99,
@@ -84,10 +74,22 @@ const getProductsData = (categoryIds) => [
     rating: 4.4
   },
   {
-    title: 'Gateway Wireless Combo',
-    description: 'Ergonomic keyboard and mouse set with whisper-quiet keys, long-range 2.4GHz wireless connection, and extended battery life.',
+    title: 'SonicPure Earbuds Pro',
+    description: 'True wireless in-ear earbuds with hybrid active noise cancellation, 10mm dynamic drivers, 8-hour playtime plus 24 hours with charging case, and IPX5 sweat resistance.',
+    category: categoryIds['Audio'],
+    brand: 'SonicPure',
+    images: ['https://images.unsplash.com/photo-1572536147248-ac59a8abfa4b?q=80&w=600&auto=format&fit=crop'],
+    price: 199,
+    discountPrice: 159,
+    stock: 50,
+    rating: 4.6
+  },
+
+  {
+    title: 'Gateway Wireless Keyboard & Mouse Combo',
+    description: 'Ergonomic full-size keyboard and mouse set with whisper-quiet keys, 2.4GHz wireless, programmable buttons, and 12-month battery life on a single charge.',
     category: categoryIds['Accessories'],
-    brand: 'Accessories',
+    brand: 'Gateway',
     images: ['https://images.unsplash.com/photo-1587829741301-dc798b83add3?q=80&w=600&auto=format&fit=crop'],
     price: 79,
     discountPrice: 59,
@@ -95,21 +97,66 @@ const getProductsData = (categoryIds) => [
     rating: 4.6
   },
   {
-    title: 'AeroPro Action Cam',
-    description: 'Waterproof 4K ultra-HD action camera with optical image stabilization, wide-angle lens, and multiple mount accessories.',
+    title: 'Classic Minimal Watch',
+    description: 'Elegant minimalist timepiece with surgical-grade stainless steel case, genuine Italian leather strap, scratch-resistant sapphire crystal, and precise Swiss quartz movement.',
+    category: categoryIds['Accessories'],
+    brand: 'TimeCraft',
+    images: ['https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop'],
+    price: 189,
+    discountPrice: 0,
+    stock: 40,
+    rating: 4.7
+  },
+  {
+    title: 'UltraSlim Power Bank 20000mAh',
+    description: 'High-capacity 20000mAh portable charger with 65W USB-C PD fast charging, dual USB-A ports, digital display, and airline-safe lithium polymer battery cells.',
+    category: categoryIds['Accessories'],
+    brand: 'ChargeMate',
+    images: ['https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?q=80&w=600&auto=format&fit=crop'],
+    price: 59,
+    discountPrice: 45,
+    stock: 75,
+    rating: 4.5
+  },
+
+  {
+    title: 'Lumina X-Pro DSLR Camera',
+    description: 'Professional DSLR camera featuring 45MP full-frame sensor, 8K video recording, dual card slots, 5-axis in-body stabilization, and advanced AI autofocus tracking.',
     category: categoryIds['Photography'],
-    brand: 'Photography',
+    brand: 'Lumina',
+    images: ['https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop'],
+    price: 1599,
+    discountPrice: 1299,
+    stock: 15,
+    rating: 4.8
+  },
+  {
+    title: 'AeroPro Action Cam 4K',
+    description: 'Waterproof 4K ultra-HD action camera with 6-axis optical image stabilization, 170° wide-angle lens, HyperSmooth technology, and multiple mounting accessories included.',
+    category: categoryIds['Photography'],
+    brand: 'AeroPro',
     images: ['https://images.unsplash.com/photo-1502920917128-1aa500764cbd?q=80&w=600&auto=format&fit=crop'],
     price: 299,
     discountPrice: 249,
     stock: 30,
     rating: 4.3
+  },
+  {
+    title: 'VisionMirror Instant Print Camera',
+    description: 'Retro-style instant print camera with built-in flash, automatic exposure control, self-timer, multiple shooting modes, and produces credit card-sized photos in 60 seconds.',
+    category: categoryIds['Photography'],
+    brand: 'VisionMirror',
+    images: ['https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?q=80&w=600&auto=format&fit=crop'],
+    price: 149,
+    discountPrice: 119,
+    stock: 45,
+    rating: 4.5
   }
 ];
 
 const seedDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/gateway_store');
+    await mongoose.connect(process.env.MONGODB_URI );
     console.log('Seed connection active...');
 
     await User.deleteMany({});
@@ -152,11 +199,11 @@ const seedDB = async () => {
       const createdCat = await Category.create(cat);
       categoriesMap[cat.name] = createdCat._id;
     }
-    console.log('Seeded Categories successfully');
+    console.log('Seeded 4 Categories successfully');
 
     const products = getProductsData(categoriesMap);
     await Product.insertMany(products);
-    console.log('Seeded Products successfully');
+    console.log(`Seeded ${products.length} Products (3 per category) successfully`);
 
     console.log('Database Seeding Complete! 🎉');
     process.exit();

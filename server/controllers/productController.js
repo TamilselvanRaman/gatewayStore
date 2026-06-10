@@ -1,4 +1,4 @@
-﻿const Product = require('../models/Product');
+const Product = require('../models/Product');
 const Category = require('../models/Category');
 const fs = require('fs');
 const path = require('path');
@@ -119,6 +119,8 @@ const createProduct = async (req, res) => {
     let images = [];
     if (req.files && req.files.length > 0) {
       images = req.files.map(file => file.filename);
+    } else if (req.body.images) {
+      images = Array.isArray(req.body.images) ? req.body.images : [req.body.images];
     } else {
       images = ['default-product.png'];
     }
@@ -170,9 +172,8 @@ const updateProduct = async (req, res) => {
       const newImages = req.files.map(file => file.filename);
 
       if (deleteExistingImages === 'true' || deleteExistingImages === true) {
-
         product.images.forEach(img => {
-          if (img !== 'default-product.png') {
+          if (img !== 'default-product.png' && !img.startsWith('http')) {
             const imagePath = path.join(__dirname, '../uploads', img);
             if (fs.existsSync(imagePath)) {
               fs.unlinkSync(imagePath);
@@ -181,7 +182,25 @@ const updateProduct = async (req, res) => {
         });
         product.images = newImages;
       } else {
-
+        if (product.images.length === 1 && product.images[0] === 'default-product.png') {
+          product.images = newImages;
+        } else {
+          product.images = [...product.images, ...newImages];
+        }
+      }
+    } else if (req.body.images) {
+      const newImages = Array.isArray(req.body.images) ? req.body.images : [req.body.images];
+      if (deleteExistingImages === 'true' || deleteExistingImages === true) {
+        product.images.forEach(img => {
+          if (img !== 'default-product.png' && !img.startsWith('http')) {
+            const imagePath = path.join(__dirname, '../uploads', img);
+            if (fs.existsSync(imagePath)) {
+              fs.unlinkSync(imagePath);
+            }
+          }
+        });
+        product.images = newImages;
+      } else {
         if (product.images.length === 1 && product.images[0] === 'default-product.png') {
           product.images = newImages;
         } else {
@@ -206,7 +225,7 @@ const deleteProduct = async (req, res) => {
     }
 
     product.images.forEach(img => {
-      if (img !== 'default-product.png') {
+      if (img !== 'default-product.png' && !img.startsWith('http')) {
         const imagePath = path.join(__dirname, '../uploads', img);
         if (fs.existsSync(imagePath)) {
           fs.unlinkSync(imagePath);

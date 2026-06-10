@@ -1,4 +1,4 @@
-﻿const Category = require('../models/Category');
+const Category = require('../models/Category');
 const Product = require('../models/Product');
 const fs = require('fs');
 const path = require('path');
@@ -28,6 +28,8 @@ const createCategory = async (req, res) => {
     let image = 'default-category.png';
     if (req.file) {
       image = req.file.filename;
+    } else if (req.body.image) {
+      image = req.body.image;
     }
 
     const category = await Category.create({
@@ -53,14 +55,21 @@ const updateCategory = async (req, res) => {
     category.name = name || category.name;
 
     if (req.file) {
-
-      if (category.image && category.image !== 'default-category.png') {
+      if (category.image && category.image !== 'default-category.png' && !category.image.startsWith('http')) {
         const oldImagePath = path.join(__dirname, '../uploads', category.image);
         if (fs.existsSync(oldImagePath)) {
           fs.unlinkSync(oldImagePath);
         }
       }
       category.image = req.file.filename;
+    } else if (req.body.image) {
+      if (category.image && category.image !== 'default-category.png' && !category.image.startsWith('http')) {
+        const oldImagePath = path.join(__dirname, '../uploads', category.image);
+        if (fs.existsSync(oldImagePath)) {
+          fs.unlinkSync(oldImagePath);
+        }
+      }
+      category.image = req.body.image;
     }
 
     const updatedCategory = await category.save();
@@ -86,7 +95,7 @@ const deleteCategory = async (req, res) => {
       });
     }
 
-    if (category.image && category.image !== 'default-category.png') {
+    if (category.image && category.image !== 'default-category.png' && !category.image.startsWith('http')) {
       const imagePath = path.join(__dirname, '../uploads', category.image);
       if (fs.existsSync(imagePath)) {
         fs.unlinkSync(imagePath);
