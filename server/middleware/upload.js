@@ -1,10 +1,14 @@
-﻿const multer = require('multer');
+const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
 const uploadDir = path.join(__dirname, '../uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
+try {
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+  }
+} catch (err) {
+  console.warn('Warning: Writable uploads directory could not be created:', err.message);
 }
 
 const storage = multer.diskStorage({
