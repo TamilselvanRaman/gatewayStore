@@ -2,6 +2,7 @@ const Product = require('../models/Product');
 const Category = require('../models/Category');
 const fs = require('fs');
 const path = require('path');
+const mongoose = require('mongoose');
 
 const getProducts = async (req, res) => {
   try {
@@ -111,6 +112,10 @@ const createProduct = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Please provide all required fields' });
     }
 
+    if (!mongoose.Types.ObjectId.isValid(category)) {
+      return res.status(400).json({ success: false, message: 'Invalid category ID format. Category must be a valid 24-character hexadecimal ObjectId.' });
+    }
+
     const categoryExists = await Category.findById(category);
     if (!categoryExists) {
       return res.status(404).json({ success: false, message: 'Category not found' });
@@ -153,6 +158,9 @@ const updateProduct = async (req, res) => {
     }
 
     if (category) {
+      if (!mongoose.Types.ObjectId.isValid(category)) {
+        return res.status(400).json({ success: false, message: 'Invalid category ID format. Category must be a valid 24-character hexadecimal ObjectId.' });
+      }
       const categoryExists = await Category.findById(category);
       if (!categoryExists) {
         return res.status(404).json({ success: false, message: 'Category not found' });
