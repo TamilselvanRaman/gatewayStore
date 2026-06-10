@@ -109,8 +109,6 @@ const Profile = () => {
   return (
     <div className="container py-5 animate-fade-in">
       <div className="row g-4">
-        
-        {}
         <div className="col-lg-4">
           <div className="gateway-card p-4 bg-white border-0 shadow-sm text-center mb-4">
             <div className="bg-light p-4 rounded-circle d-inline-block text-blue mb-3" style={{ width: '100px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -120,8 +118,6 @@ const Profile = () => {
             <p className="text-muted fs-7 mb-3">{user?.email}</p>
             <span className="badge badge-blue px-3 py-2 rounded-pill fs-8 fw-semibold text-capitalize">{user?.role} Account</span>
           </div>
-
-          {}
           <div className="gateway-card p-4 bg-white border-0 shadow-sm">
             <h5 className="fw-bold font-headings mb-3 text-dark">Profile Shortcuts</h5>
             <div className="d-flex flex-column gap-2 fs-7">
@@ -131,11 +127,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
-
-        {}
         <div className="col-lg-8">
-          
-          {}
           <div className="gateway-card p-4 bg-white border-0 shadow-sm mb-4">
             <h4 className="fw-bold font-headings mb-4 text-dark d-flex align-items-center gap-2">
               <FiUser className="text-blue" />
@@ -165,8 +157,6 @@ const Profile = () => {
               </div>
             </form>
           </div>
-
-          {}
           <div className="gateway-card p-4 bg-white border-0 shadow-sm mb-4">
             <div className="d-flex justify-content-between align-items-center mb-4">
               <h4 className="fw-bold font-headings mb-0 text-dark d-flex align-items-center gap-2">
@@ -184,8 +174,6 @@ const Profile = () => {
               </div>
             )}
             {addrErrorMsg && <div className="alert alert-danger py-2 px-3 rounded-3 fs-7 mb-3">{addrErrorMsg}</div>}
-
-            {}
             {showAddressForm && (
               <form onSubmit={handleSaveAddress} className="row g-3 bg-light p-3 rounded-3 mb-4 animate-fade-in">
                 <div className="col-12">
@@ -210,8 +198,6 @@ const Profile = () => {
                 </div>
               </form>
             )}
-
-            {}
             {user?.address && user.address.length > 0 ? (
               <div className="d-flex flex-column gap-3">
                 {user.address.map((addr) => (
@@ -230,8 +216,6 @@ const Profile = () => {
               <p className="text-muted mb-0 fs-7 italic">No shipping addresses saved yet. Use the add address button above.</p>
             )}
           </div>
-
-          {}
           <div className="gateway-card p-4 bg-white border-0 shadow-sm">
             <h4 className="fw-bold font-headings mb-4 text-dark d-flex align-items-center gap-2">
               <FiLock className="text-blue" />

@@ -51,7 +51,6 @@ const Wishlist = () => {
             return (
               <div key={product._id} className="col-12 col-md-6 col-lg-3">
                 <div className="card h-100 gateway-card border-0 position-relative">
-                  {}
                   <button
                     onClick={() => toggleWishlist(product)}
                     className="btn btn-light rounded-circle shadow-sm position-absolute top-3 end-3 p-2 border-0 z-3"
@@ -60,8 +59,6 @@ const Wishlist = () => {
                   >
                     <FiTrash2 className="text-danger" size={16} />
                   </button>
-
-                  {}
                   <Link to={`/products/${product._id}`} className="text-decoration-none">
                     <div className="d-flex align-items-center justify-content-center p-3 bg-light rounded-top text-center" style={{ height: '180px' }}>
                       <span className="fw-extrabold text-muted fs-7 text-uppercase tracking-wider">
@@ -69,8 +66,6 @@ const Wishlist = () => {
                       </span>
                     </div>
                   </Link>
-
-                  {}
                   <div className="card-body d-flex flex-column justify-content-between p-3">
                     <div>
                       <span className="text-uppercase text-orange fw-bold fs-8 font-headings mb-1 d-block">{product.brand}</span>
@@ -80,15 +75,12 @@ const Wishlist = () => {
                     </div>
 
                     <div>
-                      {}
                       <div className="d-flex align-items-baseline gap-2 mb-3">
                         <span className="fs-5 fw-bold text-blue font-headings">₹{activePrice.toLocaleString('en-IN')}</span>
                         {hasDiscount && (
                           <span className="text-muted text-decoration-line-through fs-7">₹{product.price.toLocaleString('en-IN')}</span>
                         )}
                       </div>
-
-                      {}
                       {product.stock > 0 ? (
                         <button
                           onClick={(e) => handleMoveToCart(e, product)}

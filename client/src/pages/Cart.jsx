@@ -79,8 +79,6 @@ const Cart = () => {
         </div>
       ) : (
         <div className="row g-4">
-          
-          {}
           <div className="col-lg-8">
             <div className="d-flex flex-column gap-3">
               {cart.products.map((item) => {
@@ -91,14 +89,11 @@ const Cart = () => {
 
                 return (
                   <div key={product._id} className="gateway-card p-3 bg-white border-0 shadow-sm d-flex flex-column flex-sm-row align-items-center gap-3">
-                    {}
                     <div className="d-flex align-items-center justify-content-center bg-light rounded-3 p-2" style={{ width: '90px', height: '90px', flexShrink: 0 }}>
                       <span className="fw-extrabold text-muted fs-5 text-uppercase">
                         {product.title.substring(0, 2)}
                       </span>
                     </div>
-
-                    {}
                     <div className="flex-grow-1 text-center text-sm-start">
                       <span className="text-uppercase text-orange fw-bold fs-8 font-headings">{product.brand}</span>
                       <Link to={`/products/${product._id}`} className="text-decoration-none text-dark">
@@ -112,8 +107,6 @@ const Cart = () => {
                         <span className="text-muted">x {quantity}</span>
                       </div>
                     </div>
-
-                    {}
                     <div className="d-flex align-items-center gap-2">
                       <div className="input-group input-group-sm" style={{ width: '90px' }}>
                         <button 
@@ -131,8 +124,6 @@ const Cart = () => {
                         >+</button>
                       </div>
                     </div>
-
-                    {}
                     <div className="d-flex align-items-center gap-3 justify-content-between w-100 w-sm-auto">
                       <span className="fw-bold text-dark font-headings fs-6 text-nowrap">₹{totalItemPrice.toLocaleString('en-IN')}</span>
                       <button 
@@ -148,13 +139,9 @@ const Cart = () => {
               })}
             </div>
           </div>
-
-          {}
           <div className="col-lg-4">
             <div className="gateway-card p-4 bg-white border-0 shadow-sm">
               <h5 className="fw-bold font-headings mb-4 border-bottom pb-2">Order Summary</h5>
-
-              {}
               <div className="d-flex flex-column gap-3 mb-4">
                 <div className="d-flex justify-content-between fs-7 text-muted">
                   <span>Subtotal ({cartItemCount} items)</span>
@@ -182,8 +169,6 @@ const Cart = () => {
                   <span className="fw-bold text-blue font-headings fs-4">₹{finalTotal.toLocaleString('en-IN')}</span>
                 </div>
               </div>
-
-              {}
               <button 
                 onClick={handleProceedToCheckout}
                 className="btn btn-gateway-primary w-100 py-3 rounded-pill fw-bold font-headings"

@@ -64,7 +64,6 @@ const Login = () => {
         )}
 
         <form onSubmit={handleSubmit} className="d-flex flex-column gap-3">
-          {}
           <div>
             <label className="form-label fw-bold text-dark fs-7">Email Address</label>
             <div className="input-group">
@@ -79,8 +78,6 @@ const Login = () => {
               />
             </div>
           </div>
-
-          {}
           <div>
             <div className="d-flex justify-content-between align-items-center mb-1">
               <label className="form-label fw-bold text-dark fs-7 mb-0">Password</label>
@@ -106,8 +103,6 @@ const Login = () => {
               </button>
             </div>
           </div>
-
-          {}
           <div className="form-check my-1">
             <input
               type="checkbox"
@@ -120,8 +115,6 @@ const Login = () => {
               Remember me on this browser
             </label>
           </div>
-
-          {}
           <button
             type="submit"
             className="btn btn-gateway-primary py-3 rounded-pill fw-bold font-headings mt-2"

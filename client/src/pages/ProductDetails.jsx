@@ -99,16 +99,13 @@ const ProductDetails = () => {
 
   return (
     <div className="container py-5 animate-fade-in">
-      {}
       <Link to="/products" className="btn btn-link text-muted text-decoration-none fw-semibold d-inline-flex align-items-center gap-2 mb-4">
         <FiArrowLeft /> Back to Catalog
       </Link>
 
       <div className="row g-5 mb-5">
-        {}
         <div className="col-lg-6">
           <div className="gateway-card p-3 bg-white border-0 shadow-sm d-flex flex-column gap-3 h-100 justify-content-center">
-            {}
             <div className="d-flex align-items-center justify-content-center bg-light rounded-3 p-5" style={{ minHeight: '400px' }}>
               <span className="fw-bold font-headings text-muted fs-4 text-uppercase text-center px-4 leading-relaxed">
                 {title}
@@ -116,22 +113,15 @@ const ProductDetails = () => {
             </div>
           </div>
         </div>
-
-        {}
         <div className="col-lg-6">
           <div className="gateway-card p-4 p-md-5 bg-white border-0 shadow-sm rounded-4 h-100">
             <div className="d-flex flex-column h-100 justify-content-between">
               <div>
-                {}
                 <div className="d-flex justify-content-between align-items-center mb-2">
                   <span className="text-uppercase text-orange fw-bold font-headings fs-6">{brand}</span>
                   <span className="badge bg-light text-muted border px-3 py-2 rounded-pill fs-7">{category?.name}</span>
                 </div>
-
-                {}
                 <h1 className="fw-bold font-headings mb-3 fs-2">{title}</h1>
-
-                {}
                 <div className="d-flex align-items-center mb-4">
                   <div className="text-warning d-flex align-items-center gap-1">
                     <FaStar size={18} />
@@ -139,8 +129,6 @@ const ProductDetails = () => {
                   </div>
                   <span className="text-muted ms-3 fs-7">| Verified Customer Reviews</span>
                 </div>
-
-                {}
                 <div className="mb-4">
                   <span className={`badge px-3 py-2 rounded-pill fw-semibold fs-7 ${stockStatus.class}`}>
                     {stockStatus.label}
@@ -148,8 +136,6 @@ const ProductDetails = () => {
                 </div>
 
                 <hr className="my-4 text-muted" />
-
-                {}
                 <div className="mb-4">
                   <div className="d-flex align-items-center gap-3">
                     <h2 className="fw-bold text-blue font-headings fs-1 mb-0">₹{activePrice.toLocaleString('en-IN')}</h2>
@@ -161,14 +147,10 @@ const ProductDetails = () => {
                     )}
                   </div>
                 </div>
-
-                {}
                 <div className="mb-4">
                   <h5 className="fw-bold font-headings mb-2">Product Overview</h5>
                   <p className="text-muted fs-6 leading-relaxed mb-0">{description}</p>
                 </div>
-
-                {}
                 <div className="mb-4">
                   <h5 className="fw-bold font-headings mb-2">Specifications</h5>
                   <div className="gateway-card bg-light p-3 border-0 rounded-3">
@@ -195,8 +177,6 @@ const ProductDetails = () => {
                   </div>
                 )}
               </div>
-
-              {}
               <div className="d-flex flex-column flex-sm-row gap-3 pt-3">
                 {stock > 0 ? (
                   <>
@@ -219,8 +199,6 @@ const ProductDetails = () => {
                     Out Of Stock
                   </button>
                 )}
-
-                {}
                 <button
                   onClick={() => toggleWishlist(product)}
                   className="btn btn-outline-secondary rounded-pill p-3 border-2 d-flex align-items-center justify-content-center"
@@ -238,8 +216,6 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
-
-      {}
       {related.length > 0 && (
         <div className="mt-5 pt-5 border-top border-light">
           <h3 className="fw-bold font-headings mb-4">You May Also Like</h3>

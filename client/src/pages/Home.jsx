@@ -97,8 +97,6 @@ const Home = () => {
 
   return (
     <div className="animate-fade-in bg-white">
-      
-      {}
       <section className="container py-5 mt-3">
         <div className="d-flex justify-content-between align-items-baseline mb-4 pb-2">
           <div>
@@ -157,20 +155,14 @@ const Home = () => {
           ))}
         </div>
       </section>
-
-      {}
       <section className="py-5 mt-4" style={{ backgroundColor: '#F3F6FC', borderTop: '1px solid rgba(79, 125, 243, 0.05)' }}>
         <div className="container py-3">
-          
-          {}
           <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-5 gap-3">
             <div>
               <h2 className="fw-extrabold font-headings mb-0" style={{ color: '#1E293B', fontSize: '2.25rem' }}>
                 Trending Hardware
               </h2>
             </div>
-            
-            {}
             <div className="d-flex flex-wrap gap-2">
               <button 
                 style={getTabStyle('all')} 
@@ -198,8 +190,6 @@ const Home = () => {
               </button>
             </div>
           </div>
-
-          {}
           {loading ? (
             <SkeletonLoader type="grid" count={4} />
           ) : filteredProducts.length === 0 ? (

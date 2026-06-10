@@ -1,4 +1,4 @@
-﻿import { createContext, useState, useEffect, useContext } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
 import api from '../utils/api';
 import { AuthContext } from './AuthContext';
 
@@ -9,24 +9,31 @@ export const WishlistProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const safeSetWishlist = (data) => {
+    setWishlist(Array.isArray(data) ? data : []);
+  };
+
   useEffect(() => {
     const fetchWishlist = async () => {
       setLoading(true);
       if (user) {
         try {
           const res = await api.get('/wishlist');
-          setWishlist(res.data.data);
+          safeSetWishlist(res.data.data);
         } catch (error) {
           console.error('Error fetching wishlist from server', error);
+          setWishlist([]);
         }
       } else {
-
         const localWishlist = localStorage.getItem('gateway_guest_wishlist');
-        setWishlist(localWishlist ? JSON.parse(localWishlist) : []);
+        try {
+          safeSetWishlist(localWishlist ? JSON.parse(localWishlist) : []);
+        } catch {
+          setWishlist([]);
+        }
       }
       setLoading(false);
     };
-
     fetchWishlist();
   }, [user]);
 
@@ -39,8 +46,8 @@ export const WishlistProvider = ({ children }) => {
     if (user) {
       try {
         const res = await api.post('/wishlist', { productId: product._id });
-        setWishlist(res.data.data);
-        return { success: true, isAdded: res.data.message.includes('Added') };
+        safeSetWishlist(res.data.data);
+        return { success: true, isAdded: res.data.message?.includes('Added') };
       } catch (error) {
         return {
           success: false,
@@ -48,31 +55,29 @@ export const WishlistProvider = ({ children }) => {
         };
       }
     } else {
-
-      const isAlreadyInWishlist = wishlist.some((item) => item._id === product._id);
+      const safeWishlist = Array.isArray(wishlist) ? wishlist : [];
+      const isAlreadyInWishlist = safeWishlist.some((item) => item._id === product._id);
       let newWishlist = [];
       let isAdded = false;
-
       if (isAlreadyInWishlist) {
-        newWishlist = wishlist.filter((item) => item._id !== product._id);
+        newWishlist = safeWishlist.filter((item) => item._id !== product._id);
       } else {
-        newWishlist = [...wishlist, product];
+        newWishlist = [...safeWishlist, product];
         isAdded = true;
       }
-
       saveGuestWishlist(newWishlist);
       return { success: true, isAdded };
     }
   };
 
   const isInWishlist = (productId) => {
-    return wishlist.some((item) => item._id === productId);
+    return Array.isArray(wishlist) && wishlist.some((item) => item._id === productId);
   };
 
   return (
     <WishlistContext.Provider
       value={{
-        wishlist,
+        wishlist: Array.isArray(wishlist) ? wishlist : [],
         loading,
         toggleWishlist,
         isInWishlist

@@ -38,13 +38,9 @@ const AdminOrders = () => {
   return (
     <div className="container-fluid py-4 animate-fade-in">
       <div className="row">
-
-        {}
         <div className="col-12 col-md-3 col-lg-2 mb-4 mb-md-0">
           <Sidebar />
         </div>
-
-        {}
         <div className="col-12 col-md-9 col-lg-10">
 
           <div className="mb-4">

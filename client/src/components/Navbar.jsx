@@ -44,7 +44,6 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light glass-navbar sticky-top py-3">
       <div className="container">
-        {}
         <Link className="navbar-brand fs-3 fw-bolder font-headings d-flex align-items-center gap-2" to="/">
           <img src="/logo.png" alt="Gateway Store Logo" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} />
           <div>
@@ -52,8 +51,6 @@ const Navbar = () => {
             <span className="text-orange ms-1">Store</span>
           </div>
         </Link>
-
-        {}
         <button
           className="navbar-toggler border-0 shadow-none"
           type="button"
@@ -65,11 +62,7 @@ const Navbar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-
-        {}
         <div className="collapse navbar-collapse" id="gatewayNavbarContent">
-          
-          {}
           <form onSubmit={handleSearchSubmit} className="ms-lg-auto me-lg-4 my-2 my-lg-0" style={{ width: '100%', maxWidth: '380px' }}>
             <div className="input-group position-relative">
               <input
@@ -94,8 +87,6 @@ const Navbar = () => {
               </button>
             </div>
           </form>
-
-          {}
           <ul className="navbar-nav mb-2 mb-lg-0 gap-2 gap-lg-3">
             <li className="nav-item">
               <Link className={`nav-link fw-semibold ${location.pathname === '/products' ? 'text-blue' : ''}`} to="/products">
@@ -106,10 +97,7 @@ const Navbar = () => {
           </ul>
 
           <hr className="d-lg-none my-3 text-muted" />
-
-          {}
           <div className="d-flex align-items-center gap-3 ms-lg-4">
-            {}
             <Link to="/wishlist" className="btn btn-light position-relative p-2 rounded-circle border-0 text-muted" title="Wishlist">
               <FiHeart size={20} />
               {wishlist.length > 0 && (
@@ -118,8 +106,6 @@ const Navbar = () => {
                 </span>
               )}
             </Link>
-
-            {}
             <Link to="/cart" className="btn btn-light position-relative p-2 rounded-circle border-0 text-muted" title="Cart">
               <FiShoppingCart size={20} />
               {cartItemCount > 0 && (
@@ -128,8 +114,6 @@ const Navbar = () => {
                 </span>
               )}
             </Link>
-
-            {}
             {user ? (
               <div className="dropdown">
                 <button

@@ -64,11 +64,7 @@ const ProductCard = ({ product }) => {
   return (
     <Link to={`/products/${_id}`} className="text-decoration-none text-dark h-100 d-block">
       <div className="card h-100 product-card-hover border-0 position-relative">
-        
-        {}
         <div className="product-card-img-container m-3 position-relative d-flex align-items-center justify-content-center" style={{ height: '200px', backgroundColor: '#F1F5F9', borderRadius: '16px' }}>
-          
-          {}
           {hasDiscount && (
             <span className="badge badge-orange position-absolute top-0 start-0 m-3 px-3 py-2 fs-7 rounded-pill z-3 shadow-sm">
               -{discountPercent}% OFF
@@ -80,8 +76,6 @@ const ProductCard = ({ product }) => {
               NEW
             </span>
           )}
-
-          {}
           <button
             onClick={handleToggleWishlist}
             className="btn btn-light rounded-circle shadow-sm position-absolute top-0 end-0 m-3 p-0 border-0 z-3 d-flex align-items-center justify-content-center"
@@ -93,8 +87,6 @@ const ProductCard = ({ product }) => {
               <FiHeart className="text-muted" size={16} />
             )}
           </button>
-
-          {}
           <div className="p-3 text-center w-100">
             <span className="fw-bold font-headings text-muted fs-7 text-uppercase tracking-wide" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
               {title}
@@ -102,23 +94,16 @@ const ProductCard = ({ product }) => {
           </div>
 
         </div>
-
-        {}
         <div className="card-body d-flex flex-column justify-content-between px-4 pb-4 pt-0">
           <div>
-            {}
             <span className="text-uppercase font-headings text-muted fs-7 mb-1 d-block fw-semibold tracking-wider">
               {categoryName}
             </span>
-            
-            {}
             <div className="text-decoration-none text-dark">
               <h6 className="card-title mb-2 text-truncate fw-bold" title={title}>
                 {title}
               </h6>
             </div>
-            
-            {}
             <div className="d-flex align-items-center mb-3">
               <div className="d-flex gap-1 align-items-center">
                 {starElements}
@@ -130,7 +115,6 @@ const ProductCard = ({ product }) => {
           </div>
 
           <div>
-            {}
             <div className="d-flex align-items-baseline gap-2 mb-0">
               <span className="fs-4 fw-extrabold text-blue font-headings">
                 ₹{activePrice.toLocaleString('en-IN', { minimumFractionDigits: 2 })}

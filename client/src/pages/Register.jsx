@@ -69,7 +69,6 @@ const Register = () => {
         )}
 
         <form onSubmit={handleSubmit} className="d-flex flex-column gap-3">
-          {}
           <div>
             <label className="form-label fw-bold text-dark fs-7">Full Name</label>
             <div className="input-group">
@@ -84,8 +83,6 @@ const Register = () => {
               />
             </div>
           </div>
-
-          {}
           <div>
             <label className="form-label fw-bold text-dark fs-7">Email Address</label>
             <div className="input-group">
@@ -100,8 +97,6 @@ const Register = () => {
               />
             </div>
           </div>
-
-          {}
           <div>
             <label className="form-label fw-bold text-dark fs-7">Phone Number</label>
             <div className="input-group">
@@ -116,8 +111,6 @@ const Register = () => {
               />
             </div>
           </div>
-
-          {}
           <div>
             <label className="form-label fw-bold text-dark fs-7">Password (6+ chars)</label>
             <div className="input-group">
@@ -140,8 +133,6 @@ const Register = () => {
               </button>
             </div>
           </div>
-
-          {}
           <button
             type="submit"
             className="btn btn-gateway-primary py-3 rounded-pill fw-bold font-headings mt-2"

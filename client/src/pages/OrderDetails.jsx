@@ -85,7 +85,6 @@ const OrderDetails = () => {
 
   return (
     <div className="container py-5 animate-fade-in">
-      {}
       <Link to="/orders" className="btn btn-link text-muted text-decoration-none fw-semibold d-inline-flex align-items-center gap-2 mb-4">
         <FiArrowLeft /> Back to My Orders
       </Link>
@@ -107,8 +106,6 @@ const OrderDetails = () => {
             <FiAlertCircle size={16} /> <span>{cancelStatusMsg}</span>
           </div>
         )}
-
-        {}
         {order.orderStatus !== 'Cancelled' ? (
           <div className="mb-5 bg-light p-4 rounded-4 border border-light shadow-sm">
             <h6 className="fw-bold font-headings text-muted mb-4 fs-8 text-uppercase tracking-wider">Tracking Timeline</h6>
@@ -132,8 +129,6 @@ const OrderDetails = () => {
             <span>This order has been cancelled. If any online payment was deducted, it will be refunded.</span>
           </div>
         )}
-
-        {}
         <div className="mb-5">
           <h5 className="fw-bold font-headings text-dark mb-3">Items Purchased</h5>
           <div className="d-flex flex-column gap-3">
@@ -150,7 +145,6 @@ const OrderDetails = () => {
         </div>
 
         <div className="row g-4 mb-4">
-          {}
           <div className="col-md-6">
             <h5 className="fw-bold font-headings text-dark mb-3">Delivery Address</h5>
             <div className="p-4 bg-light rounded-4 border border-light h-100">
@@ -159,8 +153,6 @@ const OrderDetails = () => {
               <p className="mb-0 text-muted fs-7 leading-relaxed">{order.address.street}, {order.address.city}, {order.address.state} - {order.address.zipCode}</p>
             </div>
           </div>
-
-          {}
           <div className="col-md-6">
             <h5 className="fw-bold font-headings text-dark mb-3">Payment Info</h5>
             <div className="p-4 bg-light rounded-4 border border-light h-100 d-flex flex-column justify-content-between">
@@ -176,8 +168,6 @@ const OrderDetails = () => {
                   </span>
                 </div>
               </div>
-
-              {}
               {order.orderStatus === 'Pending' && (
                 <button 
                   onClick={handleCancelOrder}

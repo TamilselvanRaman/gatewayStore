@@ -1,4 +1,4 @@
-﻿import { createContext, useState, useEffect, useContext } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
 import api from '../utils/api';
 import { AuthContext } from './AuthContext';
 
@@ -9,24 +9,35 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState({ products: [] });
   const [loading, setLoading] = useState(true);
 
+  const safeSetCart = (data) => {
+    if (data && Array.isArray(data.products)) {
+      setCart(data);
+    } else {
+      setCart({ products: [] });
+    }
+  };
+
   useEffect(() => {
     const fetchCart = async () => {
       setLoading(true);
       if (user) {
         try {
           const res = await api.get('/cart');
-          setCart(res.data.data);
+          safeSetCart(res.data.data);
         } catch (error) {
           console.error('Error fetching cart from server', error);
+          setCart({ products: [] });
         }
       } else {
-
         const localCart = localStorage.getItem('gateway_guest_cart');
-        setCart(localCart ? JSON.parse(localCart) : { products: [] });
+        try {
+          safeSetCart(localCart ? JSON.parse(localCart) : { products: [] });
+        } catch {
+          setCart({ products: [] });
+        }
       }
       setLoading(false);
     };
-
     fetchCart();
   }, [user]);
 
@@ -39,7 +50,7 @@ export const CartProvider = ({ children }) => {
     if (user) {
       try {
         const res = await api.post('/cart', { productId: product._id, quantity });
-        setCart(res.data.data);
+        safeSetCart(res.data.data);
         return { success: true };
       } catch (error) {
         return {
@@ -48,18 +59,15 @@ export const CartProvider = ({ children }) => {
         };
       }
     } else {
-
-      const newCart = { ...cart };
+      const newCart = { ...cart, products: [...(cart.products || [])] };
       const existingItemIndex = newCart.products.findIndex(
         (item) => item.product._id === product._id
       );
-
       if (existingItemIndex > -1) {
         newCart.products[existingItemIndex].quantity += Number(quantity);
       } else {
         newCart.products.push({ product, quantity: Number(quantity) });
       }
-
       saveGuestCart(newCart);
       return { success: true };
     }
@@ -69,7 +77,7 @@ export const CartProvider = ({ children }) => {
     if (user) {
       try {
         const res = await api.put(`/cart/${productId}`, { quantity });
-        setCart(res.data.data);
+        safeSetCart(res.data.data);
         return { success: true };
       } catch (error) {
         return {
@@ -78,12 +86,10 @@ export const CartProvider = ({ children }) => {
         };
       }
     } else {
-
-      const newCart = { ...cart };
+      const newCart = { ...cart, products: [...(cart.products || [])] };
       const existingItemIndex = newCart.products.findIndex(
         (item) => item.product._id === productId
       );
-
       if (existingItemIndex > -1) {
         newCart.products[existingItemIndex].quantity = Number(quantity);
         saveGuestCart(newCart);
@@ -96,7 +102,7 @@ export const CartProvider = ({ children }) => {
     if (user) {
       try {
         const res = await api.delete(`/cart/${productId}`);
-        setCart(res.data.data);
+        safeSetCart(res.data.data);
         return { success: true };
       } catch (error) {
         return {
@@ -105,9 +111,8 @@ export const CartProvider = ({ children }) => {
         };
       }
     } else {
-
       const newCart = { ...cart };
-      newCart.products = newCart.products.filter(
+      newCart.products = (newCart.products || []).filter(
         (item) => item.product._id !== productId
       );
       saveGuestCart(newCart);
@@ -128,11 +133,14 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  const cartItemCount = cart.products.reduce((acc, item) => acc + item.quantity, 0);
-  
-  const cartSubtotal = cart.products.reduce((acc, item) => {
+  const products = cart?.products || [];
+
+  const cartItemCount = products.reduce((acc, item) => acc + (item.quantity || 0), 0);
+
+  const cartSubtotal = products.reduce((acc, item) => {
+    if (!item.product) return acc;
     const price = item.product.discountPrice > 0 ? item.product.discountPrice : item.product.price;
-    return acc + price * item.quantity;
+    return acc + (price || 0) * (item.quantity || 0);
   }, 0);
 
   return (

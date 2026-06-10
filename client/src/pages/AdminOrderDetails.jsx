@@ -126,16 +126,10 @@ const AdminOrderDetails = () => {
   return (
     <div className="container-fluid py-4 animate-fade-in">
       <div className="row">
-
-        {}
         <div className="col-12 col-md-3 col-lg-2 mb-4 mb-md-0">
           <Sidebar />
         </div>
-
-        {}
         <div className="col-12 col-md-9 col-lg-10">
-
-          {}
           <div className="mb-4">
             <button
               onClick={() => navigate('/admin/orders')}
@@ -160,8 +154,6 @@ const AdminOrderDetails = () => {
               </div>
             </div>
           </div>
-
-          {}
           {updateMsg && (
             <div className="alert alert-success py-2 px-3 rounded-3 fs-7 mb-4 d-flex align-items-center gap-2">
               <FiCheckCircle /> <span>{updateMsg}</span>
@@ -170,13 +162,10 @@ const AdminOrderDetails = () => {
           {updateError && (
             <div className="alert alert-danger py-2 px-3 rounded-3 fs-7 mb-4">{updateError}</div>
           )}
-
-          {}
           {order.orderStatus !== 'Cancelled' && (
             <div className="gateway-card bg-white border-0 shadow-sm p-4 mb-4">
               <h6 className="fw-bold font-headings text-muted mb-4 fs-8 text-uppercase">Order Timeline</h6>
               <div className="d-flex align-items-center position-relative">
-                {}
                 <div className="position-absolute" style={{ top: '22px', left: '5%', right: '5%', height: '3px', background: '#e9ecef', zIndex: 0 }} />
                 <div
                   className="position-absolute"
@@ -214,11 +203,7 @@ const AdminOrderDetails = () => {
           )}
 
           <div className="row g-4">
-
-            {}
             <div className="col-lg-8">
-
-              {}
               <div className="gateway-card bg-white border-0 shadow-sm p-4 mb-4">
                 <h5 className="fw-bold font-headings text-dark mb-4 d-flex align-items-center gap-2">
                   <FiPackage className="text-primary" /> Items Purchased
@@ -244,14 +229,11 @@ const AdminOrderDetails = () => {
                     </div>
                   ))}
                 </div>
-                {}
                 <div className="mt-4 pt-3 border-top d-flex justify-content-between align-items-center">
                   <span className="text-muted fs-7">Order Total</span>
                   <span className="fw-bold text-dark font-headings fs-5">₹{order.totalAmount.toLocaleString('en-IN')}</span>
                 </div>
               </div>
-
-              {}
               <div className="gateway-card bg-white border-0 shadow-sm p-4 mb-4">
                 <h5 className="fw-bold font-headings text-dark mb-4 d-flex align-items-center gap-2">
                   <FiUser className="text-primary" /> Customer Record
@@ -271,8 +253,6 @@ const AdminOrderDetails = () => {
                   </div>
                 </div>
               </div>
-
-              {}
               <div className="gateway-card bg-white border-0 shadow-sm p-4">
                 <h5 className="fw-bold font-headings text-dark mb-4 d-flex align-items-center gap-2">
                   <FiMapPin className="text-primary" /> Delivery Address
@@ -288,11 +268,7 @@ const AdminOrderDetails = () => {
               </div>
 
             </div>
-
-            {}
             <div className="col-lg-4">
-
-              {}
               <div className="gateway-card bg-white border-0 shadow-sm p-4 mb-4">
                 <h5 className="fw-bold font-headings text-dark mb-4 d-flex align-items-center gap-2">
                   <FiCreditCard className="text-primary" /> Payment Info
@@ -316,8 +292,6 @@ const AdminOrderDetails = () => {
                   </div>
                 </div>
               </div>
-
-              {}
               <div className="gateway-card bg-white border-0 shadow-sm p-4" style={{ position: 'sticky', top: '100px' }}>
                 <h5 className="fw-bold font-headings text-dark mb-1">Update Status</h5>
                 <p className="text-muted fs-8 mb-4">Modify order & payment statuses</p>

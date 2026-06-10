@@ -166,20 +166,14 @@ const Checkout = () => {
       <h2 className="fw-bold font-headings mb-4 pb-2 border-bottom">Secure Checkout</h2>
 
       <div className="row g-4">
-        
-        {}
         <div className="col-lg-8">
           <div className="gateway-card p-4 p-md-5 bg-white border-0 shadow-sm d-flex flex-column gap-4">
-            
-            {}
             <div id="shipping-section">
               {addrError && (
                 <div className="alert alert-danger d-flex align-items-center gap-2 rounded-3 fs-7 py-2 mb-4">
                   <FiAlertCircle size={16} /> <span>{addrError}</span>
                 </div>
               )}
-
-              {}
               {user?.address && user.address.length > 0 && (
                 <div className="mb-4">
                   <label className="form-label fw-bold text-dark fs-7 mb-2">Select Shipping Address</label>
@@ -210,8 +204,6 @@ const Checkout = () => {
                   </div>
                 </div>
               )}
-
-              {}
               {(selectedAddressId === 'new' || !user?.address || user.address.length === 0) && (
                 <div className="row g-3 animate-fade-in">
                   <div className="col-12">
@@ -245,18 +237,13 @@ const Checkout = () => {
             </div>
 
             <hr className="my-2 text-muted-subtle" />
-
-            {}
             <div id="payment-section">
               {payError && (
                 <div className="alert alert-danger d-flex align-items-center gap-2 rounded-3 fs-7 py-2 mb-4">
                   <FiAlertCircle size={16} /> <span>{payError}</span>
                 </div>
               )}
-
-              {}
               <div className="d-flex flex-column gap-3">
-                {}
                 <div 
                   className={`p-3 border rounded-3 cursor-pointer transition ${paymentMethod === 'COD' ? 'border-primary bg-light' : 'border-light-subtle'}`} 
                   onClick={() => setPaymentMethod('COD')}
@@ -267,8 +254,6 @@ const Checkout = () => {
                     <p className="text-muted mb-0 fs-8 ms-1 mt-1">Pay with cash upon package delivery.</p>
                   </div>
                 </div>
-
-                {}
                 <div 
                   className={`p-3 border rounded-3 cursor-pointer transition ${paymentMethod === 'Card' ? 'border-primary bg-light' : 'border-light-subtle'}`} 
                   onClick={() => setPaymentMethod('Card')}
@@ -303,8 +288,6 @@ const Checkout = () => {
             </div>
 
             <hr className="my-2 text-muted-subtle" />
-
-            {}
             <div>
               <button 
                 onClick={handlePlaceOrder} 
@@ -317,13 +300,9 @@ const Checkout = () => {
 
           </div>
         </div>
-
-        {}
         <div className="col-lg-4">
           <div className="gateway-card p-4 bg-white border-0 shadow-sm position-sticky" style={{ top: '100px' }}>
             <h5 className="fw-bold font-headings mb-4 border-bottom pb-2">Checkout Details</h5>
-            
-            {}
             <div className="d-flex flex-column gap-3 mb-4" style={{ maxHeight: '220px', overflowY: 'auto' }}>
               {cart.products.map((item) => {
                 const price = item.product.discountPrice > 0 ? item.product.discountPrice : item.product.price;
@@ -343,8 +322,6 @@ const Checkout = () => {
                 );
               })}
             </div>
-
-            {}
             <div className="d-flex flex-column gap-2 mb-2 fs-7 text-muted border-top pt-3">
               <div className="d-flex justify-content-between">
                 <span>Subtotal</span>

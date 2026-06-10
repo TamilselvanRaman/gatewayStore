@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { FiPlus, FiTrash2, FiEdit2, FiCheck, FiX, FiFolder } from 'react-icons/fi';
 import Sidebar from '../components/Sidebar';
 import api from '../utils/api';
@@ -116,13 +116,9 @@ const AdminCategories = () => {
   return (
     <div className="container-fluid py-4 animate-fade-in">
       <div className="row">
-        
-        {}
         <div className="col-12 col-md-3 col-lg-2 mb-4 mb-md-0">
           <Sidebar />
         </div>
-
-        {}
         <div className="col-12 col-md-9 col-lg-10">
           
           <div className="mb-4">
@@ -142,8 +138,6 @@ const AdminCategories = () => {
           )}
 
           <div className="row g-4">
-            
-            {}
             <div className="col-lg-4">
               <div className="gateway-card p-4 bg-white border-0 shadow-sm">
                 <h5 className="fw-bold font-headings mb-4 text-dark border-bottom pb-2 d-flex align-items-center gap-2">
@@ -152,7 +146,6 @@ const AdminCategories = () => {
                 </h5>
 
                 <form onSubmit={handleSubmit} className="d-flex flex-column gap-3">
-                  {}
                   <div>
                     <label className="form-label fw-bold text-dark fs-7">Category Name *</label>
                     <input

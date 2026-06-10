@@ -28,12 +28,10 @@ function AppContent() {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      {}
       {!isAdminRoute && <Navbar />}
       
       <main className="flex-grow-1">
         <Routes>
-          {}
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<ProductDetails />} />
@@ -42,8 +40,6 @@ function AppContent() {
           <Route path="/user/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
-          {}
           <Route 
             path="/cart" 
             element={
@@ -92,8 +88,6 @@ function AppContent() {
               </ProtectedRoute>
             } 
           />
-
-          {}
           <Route 
             path="/admin" 
             element={<Navigate to="/admin/products" replace />} 
@@ -146,13 +140,9 @@ function AppContent() {
               </ProtectedRoute>
             } 
           />
-
-          {}
           <Route path="*" element={<Home />} />
         </Routes>
       </main>
-
-      {}
       {!isAdminRoute && <Footer />}
     </div>
   );

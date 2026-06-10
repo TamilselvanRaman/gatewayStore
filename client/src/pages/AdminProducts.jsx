@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { FiPlus, FiEdit2, FiTrash2, FiEye, FiCheck, FiX } from 'react-icons/fi';
 import Sidebar from '../components/Sidebar';
 import api from '../utils/api';
@@ -159,16 +159,10 @@ const AdminProducts = () => {
   return (
     <div className="container-fluid py-4 animate-fade-in">
       <div className="row">
-        
-        {}
         <div className="col-12 col-md-3 col-lg-2 mb-4 mb-md-0">
           <Sidebar />
         </div>
-
-        {}
         <div className="col-12 col-md-9 col-lg-10">
-          
-          {}
           <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-3">
             <div>
               <h2 className="fw-bold font-headings mb-1 text-dark">Manage Products</h2>
@@ -184,8 +178,6 @@ const AdminProducts = () => {
               <FiCheck /> <span>{successMsg}</span>
             </div>
           )}
-
-          {}
           {loading ? (
             <div className="text-center py-5">
               <div className="spinner-border text-blue" role="status">
@@ -252,21 +244,15 @@ const AdminProducts = () => {
               </div>
             </div>
           )}
-
-          {}
           {showModal && (
             <div className="modal show d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(30, 41, 59, 0.5)' }}>
               <div className="modal-dialog modal-lg modal-dialog-centered">
                 <div className="modal-content border-0 rounded-4 shadow-lg overflow-hidden">
-                  
-                  {}
                   <div className="modal-header bg-dark text-white border-0 py-3 px-4">
                     <h5 className="modal-title fw-bold font-headings">{editProductId ? 'Edit Product Parameters' : 'Add New Product Listing'}</h5>
                   </div>
 
                   <form onSubmit={handleFormSubmit}>
-                    
-                    {}
                     <div className="modal-body p-4 bg-light" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
                       
                       {submitError && (

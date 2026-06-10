@@ -136,8 +136,6 @@ const Products = () => {
   return (
     <div className="container py-5 animate-fade-in">
       <div className="row">
-        
-        {}
         <div className="col-lg-3 mb-4">
           <div className="gateway-card p-4 bg-white border-0 shadow-sm position-sticky" style={{ top: '100px' }}>
             <div className="d-flex justify-content-between align-items-center mb-4">
@@ -149,8 +147,6 @@ const Products = () => {
                 Clear All
               </button>
             </div>
-
-            {}
             <div className="mb-4">
               <label className="form-label fw-semibold fs-7 text-muted uppercase">Category</label>
               <select
@@ -167,8 +163,6 @@ const Products = () => {
                 ))}
               </select>
             </div>
-
-            {}
             <div className="mb-4">
               <label className="form-label fw-semibold fs-7 text-muted uppercase">Price Range (₹)</label>
               <div className="d-flex align-items-center gap-2">
@@ -198,10 +192,7 @@ const Products = () => {
 
           </div>
         </div>
-
-        {}
         <div className="col-lg-9">
-          {}
           <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
             <div>
               <h4 className="fw-bold font-headings mb-1">E-Commerce Shop</h4>
@@ -209,8 +200,6 @@ const Products = () => {
             </div>
 
           </div>
-
-          {}
           {loading ? (
             <SkeletonLoader type="grid" count={6} />
           ) : products.length === 0 ? (
@@ -231,8 +220,6 @@ const Products = () => {
                   </div>
                 ))}
               </div>
-
-              {}
               {totalPages > 1 && (
                 <nav className="d-flex justify-content-center mt-5">
                   <ul className="pagination gap-2 border-0">
