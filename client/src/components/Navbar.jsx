@@ -1,4 +1,4 @@
-﻿import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FiHeart, FiShoppingCart, FiUser, FiSearch, FiLogOut, FiSettings } from 'react-icons/fi';
 import { AuthContext } from '../context/AuthContext';
@@ -141,18 +141,22 @@ const Navbar = () => {
                       </Link>
                     </li>
                   )}
-                  <li>
-                    <Link className="dropdown-item rounded d-flex align-items-center gap-2" to="/profile">
-                      <FiUser size={16} />
-                      My Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item rounded d-flex align-items-center gap-2" to="/orders">
-                      <FiShoppingCart size={16} />
-                      My Orders
-                    </Link>
-                  </li>
+                  {!isAdmin && (
+                    <>
+                      <li>
+                        <Link className="dropdown-item rounded d-flex align-items-center gap-2" to="/profile">
+                          <FiUser size={16} />
+                          My Profile
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item rounded d-flex align-items-center gap-2" to="/orders">
+                          <FiShoppingCart size={16} />
+                          My Orders
+                        </Link>
+                      </li>
+                    </>
+                  )}
                   <li>
                     <hr className="dropdown-divider" />
                   </li>

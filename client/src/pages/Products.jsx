@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FiFilter, FiSearch, FiRefreshCw } from 'react-icons/fi';
 import api from '../utils/api';
@@ -137,8 +137,20 @@ const Products = () => {
     <div className="container py-5 animate-fade-in">
       <div className="row">
         <div className="col-lg-3 mb-4">
-          <div className="gateway-card p-4 bg-white border-0 shadow-sm position-sticky" style={{ top: '100px' }}>
-            <div className="d-flex justify-content-between align-items-center mb-4">
+          <button 
+            className="btn btn-gateway-outline w-100 d-lg-none mb-3 d-flex align-items-center justify-content-center gap-2 py-2.5 rounded-pill fw-semibold"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mobileFiltersCollapse"
+            aria-expanded="false"
+            aria-controls="mobileFiltersCollapse"
+          >
+            <FiFilter /> Toggle Filters
+          </button>
+          
+          <div className="collapse d-lg-block" id="mobileFiltersCollapse">
+            <div className="gateway-card p-4 bg-white border-0 shadow-sm position-sticky" style={{ top: '100px' }}>
+              <div className="d-flex justify-content-between align-items-center mb-4">
               <h5 className="fw-bold font-headings mb-0 d-flex align-items-center gap-2">
                 <FiFilter className="text-blue" />
                 Filters
@@ -189,7 +201,7 @@ const Products = () => {
                 Apply Range
               </button>
             </div>
-
+          </div>
           </div>
         </div>
         <div className="col-lg-9">

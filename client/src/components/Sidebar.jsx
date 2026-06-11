@@ -1,14 +1,14 @@
-﻿import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { FiGrid, FiBox, FiFolder, FiShoppingBag, FiUsers, FiPercent, FiArrowLeft } from 'react-icons/fi';
 
 const Sidebar = () => {
   return (
-    <div className="admin-sidebar d-flex flex-column h-100 py-4 shadow-sm">
-      <div className="px-4 mb-4">
+    <div className="admin-sidebar d-flex flex-row flex-md-column py-2 py-md-4 px-3 px-md-0 shadow-sm align-items-center align-items-md-stretch gap-2 gap-md-0 w-100 overflow-hidden">
+      <div className="px-md-4 mb-0 mb-md-4 d-none d-md-block">
         <h6 className="text-uppercase text-muted fw-bold font-headings fs-7 tracking-wider">Management Control</h6>
       </div>
 
-      <div className="nav flex-column mb-auto">
+      <div className="nav flex-row flex-md-column mb-0 mb-md-auto flex-grow-1 overflow-auto flex-nowrap gap-1">
         <NavLink 
           to="/admin/products" 
           className={({ isActive }) => `admin-sidebar-link ${isActive ? 'active' : ''}`}
@@ -40,9 +40,17 @@ const Sidebar = () => {
           <FiUsers size={18} />
           <span>Customers</span>
         </NavLink>
+
+        <NavLink 
+          to="/" 
+          className="admin-sidebar-link d-md-none"
+        >
+          <FiArrowLeft size={18} />
+          <span>Store</span>
+        </NavLink>
       </div>
 
-      <div className="px-3 mt-4 border-top pt-4">
+      <div className="px-3 mt-4 border-top pt-4 d-none d-md-block">
         <NavLink to="/" className="btn btn-outline-secondary w-100 rounded-pill d-flex align-items-center justify-content-center gap-2 py-2 fs-7 fw-semibold">
           <FiArrowLeft size={16} />
           Storefront

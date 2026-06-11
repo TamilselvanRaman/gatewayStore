@@ -182,6 +182,32 @@ h1, h2, h3, h4, h5, h6 {
   border-left-color: var(--primary-color);
 }
 
+/* Mobile Responsive Sidebar Adjustments */
+@media (max-width: 767.98px) {
+  .admin-sidebar {
+    min-height: auto !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-color);
+    padding: 8px 12px !important;
+  }
+  
+  .admin-sidebar-link {
+    padding: 8px 12px !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    gap: 6px !important;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    border-radius: 4px 4px 0 0;
+  }
+  
+  .admin-sidebar-link:hover, .admin-sidebar-link.active {
+    background-color: rgba(79, 125, 243, 0.05) !important;
+    border-left-color: transparent !important;
+    border-bottom-color: var(--primary-color) !important;
+  }
+}
+
 /* Badge Styles */
 .badge-orange {
   background-color: var(--secondary-color);
