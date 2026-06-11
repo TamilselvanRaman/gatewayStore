@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BACKEND_URL = 'https://gateway-store-4yggkyx0j-tamilselvanramans-projects.vercel.app';
+const BACKEND_URL = 'https://gatewaystore.onrender.com';
 
 const isLocalhost =
   typeof window !== 'undefined' &&
